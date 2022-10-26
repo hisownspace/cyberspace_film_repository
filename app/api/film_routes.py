@@ -1,7 +1,18 @@
 from flask import Blueprint
+from app.models.films import Film
 
 film_routes = Blueprint("api/films", __name__, url_prefix="/api/films") 
 
-@film_routes.route("")
+@film_routes.route("/")
 def all_films():
-  return "Hello, esteemed colleague!"
+  films = Film.query.all()
+  return [film.to_dict() for film in films]
+
+@film_routes.route("/<int:id>")
+def one_film(id):
+  film = Film.query.get(id)
+  return film.to_dict()
+
+@film_routes.route("/count")
+def film_count():
+  return { "totalFilms": Film.query.count() }

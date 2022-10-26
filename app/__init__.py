@@ -1,12 +1,18 @@
 from flask import Flask, jsonify, url_for, render_template
+from flask_migrate import Migrate
 
 from .config import Configuration as Config
 from .api.actor_routes import actor_routes
 from .api.film_routes import film_routes
+from .models import db
 
 app = Flask(__name__)
 
 app.config.from_object(Config)
+
+db.init_app(app)
+Migrate(app, db)
+
 
 app.register_blueprint(actor_routes, url_prefix="/api/actors")
 app.register_blueprint(film_routes) 
