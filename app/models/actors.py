@@ -9,12 +9,21 @@ film_cast = db.Table(
 db.Table
 
 class Actor(db.Model):
+  """
+  A SQLAlchemy.Model child class representing the Actors table in our database\n
+  :param name: the full name of actor\n
+  :param date_of_birth: the birthdate of the actor\n
+  :param place_of_birth: the date of death of the actor (if applicable)\n
+  :param photo: a link to a photo of the actor\n 
+  :param filmography: a list of the films the actor has had a role in (m2m through film_cast)\n
+  """
+
   __tablename__ = "actors"
   
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(255), nullable=False)
   date_of_birth = db.Column(db.Date, nullable=True)
-  date_of_death = db.Column(db.Date, nullable=True)
+  place_of_birth = db.Column(db.String(255), nullable=True)
   photo = db.Column(db.String(500), nullable=False)
 
   filmography = db.relationship("Film",
@@ -22,10 +31,21 @@ class Actor(db.Model):
                                 back_populates="cast")
   
   def to_dict(self):
+    """
+    Returns a dict representing the Actor
+    {
+      id,
+      name,
+      date_of_birth,
+      place_of_birth,
+      photo
+    }
+    """
     return {
       "id": self.id,
       "name": self.name,
       "date_of_birth": date.strftime(self.date_of_birth, "%B %-d, %Y"),
-      "date_of_death": self.date_of_death,
-      "photo": self.photo
+      "place_of_birth": self.place_of_birth,
+      "photo": self.photo,
+      "filmography": [film.id for film in self.filmography]
     }

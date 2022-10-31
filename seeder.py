@@ -31,6 +31,12 @@ with app.app_context():
     date_of_birth = date(1946, 7, 22),
     photo = "https://static.tvtropes.org/pmwiki/pub/images/creatordannyglover_9740.jpg"
   )
+
+  actor5 = Actor(
+    name = "Stephen Yuen",
+    date_of_birth = date(1983, 12, 21),
+    photo = "https://pyxis.nymag.com/v1/imgs/92c/e6b/bc57c5f27ecd49990bcdab824afe9a8afa-05-steven-yeun-feature.2x.h600.w512.jpg"
+  )
   
   film1 = Film(
     title = "Leaving Las Vegas",
