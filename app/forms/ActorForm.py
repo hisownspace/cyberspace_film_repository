@@ -16,8 +16,10 @@ class ActorForm(FlaskForm):
   def validate_photo(form, field):
     try:
       content_type = urlopen(field.data).info()["content-type"]
+      print(content_type)
+      print(urlopen(field.data).info())
     except:
-      return      
+      raise ValidationError("Must be a valid URL.")
     if "image" not in content_type:
       raise ValidationError("Photo must be a valid image URL!")
     return False

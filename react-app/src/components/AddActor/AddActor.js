@@ -23,10 +23,16 @@ function AddActor() {
       },
       body: JSON.stringify(actorForm)
     });
+
     if (res.ok) {
-      console.log(await res.json());
+      const actor = await res.json();
+      console.log(actor);
     } else {
-      console.log(res.json().errors);
+      console.log(res.status)
+      const data = await res.json();
+      if (data.errors) {
+        console.log(data.errors)
+      }
     }
   }
   

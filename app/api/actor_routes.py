@@ -27,6 +27,7 @@ def all_actors():
 
     return actor.to_dict()
   # return actors
+  print(form.errors)
   if form.errors:
     return { "errors": form.errors }, 409
   actors = Actor.query.all()
