@@ -28,7 +28,7 @@ def all_actors():
     return actor.to_dict()
   # return actors
   if form.errors:
-    return form.errors, 409
+    return { "errors": form.errors }, 409
   actors = Actor.query.all()
   return { actor.id: actor.to_dict() for actor in actors }, 200
 

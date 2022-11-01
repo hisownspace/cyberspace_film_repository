@@ -17,6 +17,7 @@ Migrate(app, db)
 app.register_blueprint(actor_routes, url_prefix="/api/actors")
 app.register_blueprint(film_routes) 
 
+
 @app.route("/")
 def index():
   """This is the splash page for the Cyberspace Film Repository"""
