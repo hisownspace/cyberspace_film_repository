@@ -9,5 +9,6 @@
     "Shue",
     "Stanfield",
     "Yuen"
-  ]
+  ],
+  "task.allowAutomaticTasks": "on"
 }
