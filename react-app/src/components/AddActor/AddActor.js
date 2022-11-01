@@ -37,33 +37,45 @@ function AddActor() {
   }
   
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="addActorForm" onSubmit={handleSubmit}>
+      <div className="errors">
+
+      </div>
       <label htmlFor="name">
-        Name: 
+        Name
       </label>
       <input
         id="name"
         value={name}
         onChange={e => setName(e.target.value)}
       />
+      <p className="errors">
+
+      </p>
       <label htmlFor="dateOfBirth">
-        Date of Birth: 
+        Date of Birth
       </label>
       <input
         id="dateOfBirth"
         value={dateOfBirth}
         onChange={e => setDateOfBirth(e.target.value)}
         />
+      <p className="errors">
+
+      </p>
       <label htmlFor="placeOfBirth">
-        Place of Birth: 
+        Place of Birth
       </label>
       <input
         id="placeOfBirth"
         value={placeOfBirth}
         onChange={e => setPlaceOfBirth(e.target.value)}
         />
+      <p className="errors">
+      
+      </p>
       <label htmlFor="photo">
-        Photo Url: 
+        Photo Url 
       </label>
       <input
         id="photo"

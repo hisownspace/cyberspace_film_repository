@@ -1,0 +1,25 @@
+.addActorForm {
+  border: 1px solid rgba(102, 102, 210, 0.577);
+  border-radius: 15px;
+  padding: 25px 50px;
+  margin: 10% auto;
+  width: 350px;
+}
+
+.addActorForm input {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 15px;
+}
+
+.addActorForm label {
+  position: relative;
+  top: 7px;
+  left: 27px;
+  font-size: small;
+  background-color: rgba(255, 255, 255);
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 0px;
+  padding: 0px 4px;
+  vertical-align: text-bottom;
+}
