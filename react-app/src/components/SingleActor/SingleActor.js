@@ -18,7 +18,7 @@ const SingleActor = () => {
       const res = await fetch(`/api/actors/${actorId}`);
       if (res.ok) {
         const actor = await res.json();
-        setActor(actor);
+        setActor(actor[actorId]);
       } else {
         console.log(res.status);
         setErrors(res.status);
@@ -31,13 +31,23 @@ const SingleActor = () => {
     return <NotFound />;
   } else if (loaded) {
     return (
-      <>
+      <div className='single-actor-main'>
         {actor ? 
-        <div className='single-actor-main'>
-          <ActorCard actor={actor[actorId]} />
-        </div>
+            <div className='single-actor-focus'>
+              <div className="single-actor-photo-container">
+                <img className="single-actor-photo" src={actor.photo}></img>
+              </div>
+              <div className='single-actor-heading'>
+                <p>
+                  {actor.name}
+                </p>
+              </div>
+              <div className='single-actor-bio'>
+                <p>Born: {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
+              </div>
+            </div>
         : null}
-      </>
+      </div>
     )  
   } else {
     return null;

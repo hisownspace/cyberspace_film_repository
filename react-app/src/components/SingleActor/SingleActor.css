@@ -1,0 +1,52 @@
+.single-actor-main {
+  background-color: white;
+  height: 100%;
+  width: 1000px;
+  font-size: 20px;
+  margin: auto;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.single-actor-focus {
+  width: auto;
+  height: 450px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 2fr 8fr;
+}
+
+.single-actor-photo-container {
+  margin: -1px;
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 3;
+  background-color: blue;
+}
+
+.single-actor-photo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.single-actor-info {
+  width: 100%;
+  height: 100%;
+}
+
+.single-actor-heading {
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.482);
+  margin: 0 20px;
+  color: black;
+  font-size: 27px;
+}
+
+.single-actor-bio {
+  grid-row: 2 / span 1;
+  grid-column: 2 / span 1;
+  margin: 0 20px;
+}
