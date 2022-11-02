@@ -47,5 +47,5 @@ class Actor(db.Model):
       "date_of_birth": date.strftime(self.date_of_birth, "%B %-d, %Y"),
       "place_of_birth": self.place_of_birth,
       "photo": self.photo,
-      "filmography": [film.id for film in self.filmography]
+      "filmography": [film.to_dict() for film in self.filmography]
     }

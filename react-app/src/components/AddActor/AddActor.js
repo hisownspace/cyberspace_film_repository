@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function AddActor() {
   const [name, setName] = useState("");
@@ -6,15 +7,21 @@ function AddActor() {
   const [placeOfBirth, setPlaceOfBirth] = useState("");
   const [photo, setPhoto] = useState("");
 
+  const history = useHistory();
+
+  const handleCancel = e => {
+    history.push("/");
+  }
+
   const handleSubmit = async e =>{
-    e.preventDefault()
+    e.preventDefault();
 
     const actorForm = {
       name,
       "date_of_birth": dateOfBirth,
       "place_of_birth": placeOfBirth,
       photo
-    }
+    };
 
     const res = await fetch("/api/actors",
     {
@@ -28,10 +35,10 @@ function AddActor() {
       const actor = await res.json();
       console.log(actor);
     } else {
-      console.log(res.status)
+      console.log(res.status);
       const data = await res.json();
       if (data.errors) {
-        console.log(data.errors)
+        console.log(data.errors);
       }
     }
   }
@@ -82,9 +89,12 @@ function AddActor() {
         value={photo}
         onChange={e => setPhoto(e.target.value)}
         />
-      <button>Submit</button>
+      <div className="buttonHole">
+        <button className="cancel" type="button" onClick={handleCancel}>Cancel</button>
+        <button>Submit</button>
+      </div>
     </form>
-  )
-}
+  );
+};
 
 export default AddActor;

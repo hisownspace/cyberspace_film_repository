@@ -23,3 +23,28 @@
   padding: 0px 4px;
   vertical-align: text-bottom;
 }
+
+.addActorForm button {
+  background-color: rgb(102, 102, 210);
+  color: white;
+  border: 1px solid rgba(102, 102, 210, 0.577);
+  border-radius: 3px;
+  height: 35px;
+  width: 75px;
+  cursor: pointer;
+}
+
+.addActorForm .cancel {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.80);
+}
+
+.addActorForm .buttonHole {
+  margin: 20px 0 5px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .addActorForm .buttonHole button {
+
+} */

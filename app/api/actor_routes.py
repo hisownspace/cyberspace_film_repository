@@ -36,7 +36,9 @@ def all_actors():
 @actor_routes.route("/<int:id>") 
 def one_actor(id):
   actor = Actor.query.get(id)
-  return { actor.id: actor.to_dict() }, 200
+  if actor:
+    return { actor.id: actor.to_dict() }, 200
+  return { "errors": "Actor not found!" }, 404
   
 @actor_routes.route("/count")
 def actor_count():
