@@ -1,11 +1,6 @@
 from app.models.db import db
 # from app.models.actors import film_cast
 
-genre = db.Table(
-  "film_genres",
-  db.Column("film_id", db.ForeignKey("films.id")),
-  db.Column("genre_id", db.ForeignKey("genres.id"))
-)
 
 class Film(db.Model):
   """
@@ -23,10 +18,10 @@ class Film(db.Model):
   year = db.Column(db.Integer, nullable=False)
   plot = db.Column(db.String(2000), nullable=True)
   photo_url = db.Column(db.String(1000), nullable=False)
+  genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"))  
   
   
-  
-  genres = db.relationship("Genre", secondary="film_genres", back_populates="films")
+  genre = db.relationship("Genre", back_populates="films")
 
   cast = db.relationship("Actor", secondary="film_cast", back_populates="filmography")
   

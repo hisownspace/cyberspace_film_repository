@@ -35,7 +35,7 @@ const SingleActor = () => {
         {actor ? 
             <div className='single-actor-focus'>
               <div className="single-actor-photo-container">
-                <img className="single-actor-photo" src={actor.photo}></img>
+                <img className="single-actor-photo" src={actor.photo_url}></img>
               </div>
               <div className='single-actor-heading'>
                 <p>

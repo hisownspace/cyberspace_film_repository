@@ -22,7 +22,7 @@
   margin: -1px;
   grid-column: 1 / span 1;
   grid-row: 1 / span 3;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .single-actor-photo {

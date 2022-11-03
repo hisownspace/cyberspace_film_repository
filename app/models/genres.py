@@ -13,4 +13,4 @@ class Genre(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50), unique=True)
   
-  films = db.relationship("Film", secondary="film_genres", back_populates="genres")
+  films = db.relationship("Film", back_populates="genre")
