@@ -1,6 +1,12 @@
 from app.models.db import db
 # from app.models.actors import film_cast
 
+genre = db.Table(
+  "film_genres",
+  db.Column("film_id", db.ForeignKey("films.id")),
+  db.Column("genre_id", db.ForeignKey("genres.id"))
+)
+
 class Film(db.Model):
   """
   A SQLAlchemy.Model child class representing the Actors table in our database\n
@@ -16,16 +22,22 @@ class Film(db.Model):
   title = db.Column(db.String(255), nullable=False)
   year = db.Column(db.Integer, nullable=False)
   plot = db.Column(db.String(2000), nullable=True)
+  photo_url = db.Column(db.String(1000), nullable=False)
+  
+  
+  
+  genres = db.relationship("Genre", secondary="film_genres", back_populates="films")
 
   cast = db.relationship("Actor", secondary="film_cast", back_populates="filmography")
   
-  def to_dict(self):
+  def to_dict(self, from_actor=False):
     """
     Returns a dict representing the film:
     { id,
       title,
       year,
       plot,
+      photo_url,
       cast
     }
     """
@@ -34,6 +46,7 @@ class Film(db.Model):
       "title": self.title,
       "year": self.year,
       "plot": self.plot,
-      "cast": [actor.id for actor in self.cast]
+      "photo_url": self.photo_url,
+      "cast": [actor.id for actor in self.cast] if from_actor else [actor.to_dict(True) for actor in self.cast]
     }
   

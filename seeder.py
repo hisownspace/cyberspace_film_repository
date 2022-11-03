@@ -1,4 +1,4 @@
-from app.models import db, Film, Actor
+from app.models import db, Film, Actor, Genre
 from app import app
 
 from datetime import date
@@ -7,6 +7,14 @@ with app.app_context():
   
   db.drop_all()
   db.create_all()
+  
+  
+  fantasy = Genre(name = "Fantasy") 
+  horror = Genre(name = "Horror")
+  action = Genre(name = "Action")
+  sci_fi = Genre(name = "Sci-fi")
+  comedy = Genre(name = "Comedy")
+  drama = Genre(name = "Drama")
   
   actor1 = Actor(
     name = "Nicolas Cage",
@@ -44,7 +52,8 @@ with app.app_context():
     plot = """
     Ben Sanderson, a Hollywood screenwriter who lost everything because of his alcoholism, arrives in Las Vegas to drink himself to death. There, he meets and forms an uneasy friendship and non-interference pact with prostitute Sera.
     """,
-    cast = [actor1, actor2]
+    cast = [actor1, actor2],
+    genre = drama
     )
   
   film2 = Film(
@@ -53,7 +62,8 @@ with app.app_context():
     plot = """
     In an alternate present-day version of Oakland, telemarketer Cassius Green discovers a magical key to professional success, propelling him into a universe of greed.
     """,
-    cast = [actor3, actor4]
+    cast = [actor3, actor4],
+    genre = sci_fi
   )
   
   actors = [actor1, actor2]

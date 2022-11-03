@@ -24,13 +24,14 @@ class Actor(db.Model):
   name = db.Column(db.String(255), nullable=False)
   date_of_birth = db.Column(db.Date, nullable=True)
   place_of_birth = db.Column(db.String(255), nullable=True)
-  photo = db.Column(db.String(500), nullable=False)
+  photo_url = db.Column(db.String(500), nullable=False)
+  bio = db.Column(db.String(2000), nullable=True)
 
   filmography = db.relationship("Film",
                                 secondary=film_cast,
                                 back_populates="cast")
   
-  def to_dict(self):
+  def to_dict(self, from_film=False):
     """
     Returns a dict representing the Actor
     {
@@ -46,6 +47,6 @@ class Actor(db.Model):
       "name": self.name,
       "date_of_birth": date.strftime(self.date_of_birth, "%B %-d, %Y"),
       "place_of_birth": self.place_of_birth,
-      "photo": self.photo,
-      "filmography": [film.to_dict() for film in self.filmography]
+      "photo_url": self.photo_url,
+      "filmography":  [film.id for film in self.filmography] if from_film else [film.to_dict(True) for film in self.filmography]
     }
