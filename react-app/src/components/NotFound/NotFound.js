@@ -3,9 +3,16 @@
 
 function NotFound () {
   return (
-  <>
-    <h1>404: Not Found</h1>
-  </>
+  <div className="not-found-main">
+    <div className="not-found-box">
+      <p className="not-found-message">
+        404: Not Found
+      </p>
+      <p>
+        <a href="/">Return Home</a>
+      </p>
+    </div>
+  </div>
   )
 }
 

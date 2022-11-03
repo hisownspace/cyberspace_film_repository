@@ -18,7 +18,7 @@ function SingleFilm () {
         setErrors(res.status);
       }
     })().then(setLoaded(true));
-    return setLoaded(false);
+    return () => setLoaded(false);
   }, [filmId]);
 
   if (errors) {
