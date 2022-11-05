@@ -1,8 +1,20 @@
+.form-main {
+  height: 100%;
+  width: 100%;
+  padding: 10% 0;
+  background-color: white;
+}
+
+.add-actor-header {
+text-align: center;
+color: rgba(102, 102, 210, 0.577);
+}
+
 .addActorForm {
   border: 1px solid rgba(102, 102, 210, 0.577);
   border-radius: 15px;
   padding: 25px 50px;
-  margin: 10% auto;
+  margin: auto;
   width: 350px;
 }
 
@@ -10,6 +22,7 @@
   width: 100%;
   height: 25px;
   margin-bottom: 15px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .addActorForm label {
@@ -45,6 +58,9 @@
   justify-content: space-between;
 }
 
-/* .addActorForm .buttonHole button {
-
-} */
+.addActorForm textarea {
+  resize: vertical;
+  width: 97.5%;
+  min-height: 75px;
+  padding: 7px;
+}

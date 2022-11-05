@@ -20,7 +20,6 @@ const SingleActor = () => {
         const actor = await res.json();
         setActor(actor[actorId]);
       } else {
-        console.log(res.status);
         setErrors(res.status);
       };
     })().then(setLoaded(true));
@@ -43,7 +42,17 @@ const SingleActor = () => {
                 </p>
               </div>
               <div className='single-actor-bio'>
+                <div>
+                <p>{actor["bio"]}</p>
+                </div>
+                <div>
                 <p>Born: {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
+                <p>
+                  <a className="edit-actor-link" href="/actors/edit">Edit Actor</a>
+                  &emsp;
+                  <a className="edit-actor-link" href="/actors/delete">Delete Actor</a>
+                </p>
+              </div>
               </div>
             </div>
         : null}

@@ -48,5 +48,6 @@ class Actor(db.Model):
       "date_of_birth": date.strftime(self.date_of_birth, "%B %-d, %Y"),
       "place_of_birth": self.place_of_birth,
       "photo_url": self.photo_url,
+      "bio": self.bio,
       "filmography":  [film.id for film in self.filmography] if from_film else [film.to_dict(True) for film in self.filmography]
     }

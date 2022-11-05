@@ -49,4 +49,13 @@
   grid-row: 2 / span 1;
   grid-column: 2 / span 1;
   margin: 0 20px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.edit-actor-link {
+  font-size: 12px;
 }

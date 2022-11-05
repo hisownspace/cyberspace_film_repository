@@ -18,7 +18,8 @@ def all_actors():
       "name": form.data["name"],
       "date_of_birth": form.data["date_of_birth"],
       "place_of_birth": form.data["place_of_birth"],
-      "photo": form.data["photo"]
+      "photo_url": form.data["photo_url"],
+      "bio": form.data["bio"]
     }
     actor = Actor(**params)
 
