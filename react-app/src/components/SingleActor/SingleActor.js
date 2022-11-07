@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import ActorCard from '../ActorCard';
 import NotFound from '../NotFound';
+import DeleteActorModal from '../DeleteActorModal';
 
 const SingleActor = () => {
   const [loaded, setLoaded] = useState(false);
@@ -10,6 +11,7 @@ const SingleActor = () => {
   const [errors, setErrors] = useState(false)
 
   const actorId = useParams().id;
+  const [showModal, setShowModal] = useState(false);
 
 
   
@@ -26,6 +28,12 @@ const SingleActor = () => {
     return () => setLoaded(false);
   }, [actorId]);
 
+
+  useEffect(() => {
+    console.log(actor);
+    console.log(actor?.filmography)
+  }, [actor]);
+
   if (errors) {
     return <NotFound />;
   } else if (loaded) {
@@ -37,25 +45,50 @@ const SingleActor = () => {
                 <img className="single-actor-photo" src={actor.photo_url}></img>
               </div>
               <div className='single-actor-heading'>
-                <p>
+                <h4>
                   {actor.name}
-                </p>
+                </h4>
               </div>
               <div className='single-actor-bio'>
                 <div>
-                <p>{actor["bio"]}</p>
+                <p>{actor.bio?.length < 800 ? actor.bio : actor.bio ? actor.bio?.slice(0, 800 + actor["bio"].slice(800).indexOf(" ")) + " ..." : null}</p>
                 </div>
                 <div>
-                <p>Born: {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
+                <p><b>Born:</b> {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
                 <p>
-                  <a className="edit-actor-link" href="/actors/edit">Edit Actor</a>
+                  <a className="edit-actor-link" href={`/actors/${actor.id}/edit`}>Edit Actor</a>
                   &emsp;
-                  <a className="edit-actor-link" href="/actors/delete">Delete Actor</a>
+                  <a className="delete-actor-link" onClick={() => setShowModal(true)}>Delete Actor</a>
                 </p>
               </div>
               </div>
             </div>
+
         : null}
+        <div className='single-actor-filmography'>
+          <table className='filmography-table'>
+            <thead>
+            <h4>
+              Filmography
+            </h4>
+            </thead>
+            <tbody>
+              {actor?.filmography.map((film, idx) => {
+                return (
+                <tr className='filmography-row' key={`filmography-row-{idx}`}>
+                  <td className='filmography-title'>
+                    <a href={`/films/${film.id}`}>{film.title}</a>
+                  </td>
+                  <td className='filmography-year'>
+                    {film.year}
+                  </td>
+                </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        <DeleteActorModal showModal={showModal} setShowModal={setShowModal} name={actor?.name} id={actor?.id} />
       </div>
     )  
   } else {

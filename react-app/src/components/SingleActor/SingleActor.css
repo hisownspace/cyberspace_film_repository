@@ -12,10 +12,25 @@
   width: auto;
   height: 450px;
   border: 1px solid grey;
-  border-radius: 10px;
+  border-radius: 7px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 2fr 8fr;
+}
+
+.single-actor-filmography {
+  width: auto;
+  margin-top: 10px;
+  padding-left: 10px;
+  border: 1px solid grey;
+  border-radius: 7px;
+}
+
+.single-actor-filmography h4 {
+  color: #664700;
+  font-weight: normal;
+  font-size: 27px;
+  margin: 10px;
 }
 
 .single-actor-photo-container {
@@ -41,8 +56,14 @@
   grid-column: 2 / span 1;
   border-bottom: 1px solid rgba(128, 128, 128, 0.482);
   margin: 0 20px;
-  color: black;
+  color: #333333;
   font-size: 27px;
+}
+
+.single-actor-heading h4 {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  font-weight: 400;
 }
 
 .single-actor-bio {
@@ -50,12 +71,44 @@
   grid-column: 2 / span 1;
   margin: 0 20px;
   font-family: Verdana, Arial, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  white-space: pre-wrap;
+  color: #333333;
 }
 
 .edit-actor-link {
+  font-size: 12px;
+}
+
+.filmography-table {
+  width: 98%;
+  margin: auto;
+}
+
+.filmography-row {
+  background-color: #F6F6F5;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.filmography-title {
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.filmography-year {
+  padding-right: 10px;
+}
+
+.delete-actor-link {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
   font-size: 12px;
 }

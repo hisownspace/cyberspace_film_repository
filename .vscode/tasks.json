@@ -70,21 +70,21 @@
       "isBackground": true,
       "problemMatcher": [],
       "icon": { "color": "terminal.ansiGreen", "id": "github-inverted" }
-    },
-    {
-      "label": "zsh",
-      "type": "shell",
-      "command": "sleep 3 && zsh",
-      "options": {
-        "cwd": "./react-app",
-        "shell": {
-          "executable": "",
-          "args": []
-        }
-      },
-      "isBackground": true,
-      "problemMatcher": [],
-      "icon": { "color": "terminal.ansiGreen", "id": "terminal" }
-    }
+    }// ,
+    // {
+    //   "label": "zsh",
+    //   "type": "shell",
+    //   "command": "sleep 3 && zsh",
+    //   "options": {
+    //     "cwd": "./react-app",
+    //     "shell": {
+    //       "executable": "",
+    //       "args": []
+    //     }
+    //   },
+    //   "isBackground": true,
+    //   "problemMatcher": [],
+    //   "icon": { "color": "terminal.ansiGreen", "id": "terminal" }
+    // }
   ]
 }

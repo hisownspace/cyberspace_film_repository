@@ -15,6 +15,7 @@ class Actor(db.Model):
   :param date_of_birth: the birthdate of the actor\n
   :param place_of_birth: the date of death of the actor (if applicable)\n
   :param photo: a link to a photo of the actor\n 
+  :param bio: a short description of the life of the actor\n
   :param filmography: a list of the films the actor has had a role in (m2m through film_cast)\n
   """
 

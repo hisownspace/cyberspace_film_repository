@@ -7,7 +7,9 @@ html, body, #root {
 }
 
 #root {
-  background-color: #C7C7C4;
+  /* background-color: #C7C7C4; */
+  background: linear-gradient(180deg, #BEBEBA, #E3E2DD);
+
 }
 
 .errors {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
-function AddActor() {
+function EditActor() {
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [placeOfBirth, setPlaceOfBirth] = useState("");
@@ -10,18 +10,39 @@ function AddActor() {
   const [films, setFilms] = useState([]);;
   const [selectedFilms, setSelectedFilms] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  let { id } = useParams();
 
   const history = useHistory();
 
-const handleCheckedState = (e, idx) => {
-  const tempCheckedState = checkedState;
-  tempCheckedState[idx] = !tempCheckedState[idx];
-  setCheckedState(tempCheckedState);
-  console.log(checkedState);
-};
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/actors/${id}`);
+      if (res.ok) {
+
+        const data = await res.json();
+        const actor = data[id];
+        setName(actor.name);
+        setDateOfBirth(actor.date_of_birth);
+        setPlaceOfBirth(actor.place_of_birth);
+        setPhotoUrl(actor.photo_url);
+        setBio(actor.bio);
+        console.log(actor.filmography);
+        setFilms(actor.filmography);
+      }
+    }
+    )().then(setLoaded(true));
+  }, [id]);
+
+  const handleCheckedState = (e, idx) => {
+    const tempCheckedState = checkedState;
+    tempCheckedState[idx] = !tempCheckedState[idx];
+    setCheckedState(tempCheckedState);
+    console.log(checkedState);
+  };
 
   const handleCancel = e => {
-    history.push("/");
+    history.push(`/actors/${id}`);
   }
 
   useEffect(() => {
@@ -95,9 +116,9 @@ const handleCheckedState = (e, idx) => {
   };
 
   return (
-    <div className="form-main">
+    loaded ? <div className="form-main">
       <h1 className="add-actor-header">
-        Add An Actor!
+        Edit {name}!
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
@@ -204,8 +225,8 @@ const handleCheckedState = (e, idx) => {
           <button>Submit</button>
         </div>
       </form>
-    </div>
+    </div> : null
   );
 };
 
-export default AddActor;
+export default EditActor;

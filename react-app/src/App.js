@@ -6,12 +6,14 @@ import AddActor from "./components/AddActor";
 import SingleActor from './components/SingleActor';
 import SingleFilm from './components/SingleFilm';
 import NotFound from './components/NotFound';
+import EditActor from './components/EditActor';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/actors/add"><AddActor /></Route>
+        <Route path="/actors/:id/edit"><EditActor /></Route>
         <Route path="/actors/:id"><SingleActor /></Route>
         <Route path="/actors"><Actors /></Route>
         <Route path="/films/:id"><SingleFilm /></Route>
