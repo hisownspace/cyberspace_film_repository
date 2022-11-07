@@ -7,10 +7,12 @@ function EditActor() {
   const [placeOfBirth, setPlaceOfBirth] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [bio, setBio] = useState("");
-  const [films, setFilms] = useState([]);;
+  const [films, setFilms] = useState([]);
+  const [filmRoles, setFilmRoles] = useState([]);
   const [selectedFilms, setSelectedFilms] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState({});
   let { id } = useParams();
 
   const history = useHistory();
@@ -23,22 +25,36 @@ function EditActor() {
         const data = await res.json();
         const actor = data[id];
         setName(actor.name);
-        setDateOfBirth(actor.date_of_birth);
+        let dob = new Date(actor.date_of_birth);
+        const year = dob.toLocaleString("default", { year: "numeric" });
+        const month = dob.toLocaleString("default", { month: "2-digit" })
+        const day = dob.toLocaleString("default", { day: "2-digit" });
+        dob = year + "-" + month + "-" + day;
+        setDateOfBirth(dob);
+        console.log(dateOfBirth.toLocaleString());
         setPlaceOfBirth(actor.place_of_birth);
         setPhotoUrl(actor.photo_url);
         setBio(actor.bio);
-        console.log(actor.filmography);
-        setFilms(actor.filmography);
+        setFilmRoles(actor.filmography);
+        const roleIndexes = []
+        const tempChecked = new Array(films.length).fill(false);
+        for (let i = 0; i < filmRoles.length; i++) {
+          const found = films.find(film => film.id === filmRoles[i].id);
+          if (found) {
+            tempChecked[i] = true;
+          }
+        }        
+        setCheckedState(tempChecked);
       }
     }
-    )().then(setLoaded(true));
-  }, [id]);
+    )()
+    setLoaded(true);
+  }, [id, films]);
 
   const handleCheckedState = (e, idx) => {
-    const tempCheckedState = checkedState;
+    const tempCheckedState = [...checkedState];
     tempCheckedState[idx] = !tempCheckedState[idx];
     setCheckedState(tempCheckedState);
-    console.log(checkedState);
   };
 
   const handleCancel = e => {
@@ -50,13 +66,12 @@ function EditActor() {
       const res = await fetch("/api/films/");
       if (res.ok) {
         const data = await res.json();
-        console.log(Object.values(data));
         setFilms(Object.values(data));
         setCheckedState(new Array(Object.values(data).length).fill(false));
       } else {
         const data = await res.json();
         if (data.errors) {
-          console.log(data.errors);
+          setErrors(data.errors);
         }
       }
     })()
@@ -82,11 +97,10 @@ function EditActor() {
       filmography
     };
 
-    console.log(actorForm);
 
-    const res = await fetch("/api/actors",
+    const res = await fetch(`/api/actors/${id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
@@ -97,7 +111,6 @@ function EditActor() {
       const actor = await res.json();
       history.push(`/actors/${actor.id}`);
     } else {
-      console.log(res.status);
       const data = await res.json();
       if (data.errors) {
         console.log(data.errors);
@@ -106,12 +119,8 @@ function EditActor() {
   }
 
   const addFilm = (e, idx) => {
-    console.log("YOU CLICKED THE FUCKING BUTTON!!!!!");
     const tempFilms = selectedFilms;
-    console.log(selectedFilms[idx]);
-    console.log("FUCK", e.target.value)
     selectedFilms[idx] = !selectedFilms[idx];
-    console.log(films);
     setSelectedFilms(tempFilms);
   };
 
@@ -122,7 +131,7 @@ function EditActor() {
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
-
+          {errors.name ? errors.name : null}
         </div>
         <label
           htmlFor="name"
@@ -137,7 +146,7 @@ function EditActor() {
           onChange={e => setName(e.target.value)}
         />
         <p className="errors">
-
+          {errors.date_of_birth ? errors.date_of_birth : null}
         </p>
         <label
           htmlFor="dateOfBirth"
@@ -153,7 +162,7 @@ function EditActor() {
           onChange={e => setDateOfBirth(e.target.value)}
         />
         <p className="errors">
-
+          {errors.place_of_birth ? errors.place_of_birth : null}
         </p>
         <label
           htmlFor="placeOfBirth"
@@ -168,13 +177,13 @@ function EditActor() {
           onChange={e => setPlaceOfBirth(e.target.value)}
         />
         <p className="errors">
-
+          {errors.photo_url ? errors.photo_url : null}
         </p>
         <label
           htmlFor="photo"
           className="actor-label"
         >
-          Photo Url
+          Photo URL
         </label>
         <input
           className="actor-input"
@@ -182,6 +191,9 @@ function EditActor() {
           value={photoUrl}
           onChange={e => setPhotoUrl(e.target.value)}
         />
+        <p className="errors">
+          {errors.bio ? errors.bio : null}
+        </p>
         <label
           htmlFor="bio"
           className="actor-label"
@@ -213,7 +225,7 @@ function EditActor() {
                 id={`film-checkbox-${film.id}`}
                 name={film.title}
                 value={film.title}
-                // checked={checkedState[idx]}
+                checked={checkedState[idx] === undefined ? false : checkedState[idx]}
                 onChange={e => handleCheckedState(e, idx)}
               />  
             </li>

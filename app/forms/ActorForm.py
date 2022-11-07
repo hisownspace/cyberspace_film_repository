@@ -12,7 +12,7 @@ class ActorForm(FlaskForm):
   date_of_birth = DateField("Date of Birth", [DataRequired()])
   place_of_birth = StringField("Place of Birth", [Optional(), Length(min=2, max=255)])
   photo_url = StringField("Photo", [DataRequired(), URL(require_tld=True, message="Photo must be a valid URL!")])
-  bio = StringField("String", [Length(max=2000)])
+  bio = StringField("String", [Length(max=5000)])
   filmography = SelectMultipleField("Films", choices=[], validate_choice=False, coerce=int)
   
   def validate_photo(form, field):

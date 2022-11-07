@@ -10,14 +10,15 @@ function AddActor() {
   const [films, setFilms] = useState([]);;
   const [selectedFilms, setSelectedFilms] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const history = useHistory();
 
 const handleCheckedState = (e, idx) => {
-  const tempCheckedState = checkedState;
+  const tempCheckedState = [...checkedState];
   tempCheckedState[idx] = !tempCheckedState[idx];
   setCheckedState(tempCheckedState);
-  console.log(checkedState);
 };
 
   const handleCancel = e => {
@@ -35,6 +36,7 @@ const handleCheckedState = (e, idx) => {
       } else {
         const data = await res.json();
         if (data.errors) {
+          setErrors(errors);
           console.log(data.errors);
         }
       }
@@ -61,8 +63,6 @@ const handleCheckedState = (e, idx) => {
       filmography
     };
 
-    console.log(actorForm);
-
     const res = await fetch("/api/actors",
       {
         method: "POST",
@@ -71,7 +71,7 @@ const handleCheckedState = (e, idx) => {
         },
         body: JSON.stringify(actorForm)
       });
-
+    setSubmitted(true);
     if (res.ok) {
       const actor = await res.json();
       history.push(`/actors/${actor.id}`);
@@ -79,20 +79,11 @@ const handleCheckedState = (e, idx) => {
       console.log(res.status);
       const data = await res.json();
       if (data.errors) {
+        setErrors(data.errors);
         console.log(data.errors);
       }
     }
   }
-
-  const addFilm = (e, idx) => {
-    console.log("YOU CLICKED THE FUCKING BUTTON!!!!!");
-    const tempFilms = selectedFilms;
-    console.log(selectedFilms[idx]);
-    console.log("FUCK", e.target.value)
-    selectedFilms[idx] = !selectedFilms[idx];
-    console.log(films);
-    setSelectedFilms(tempFilms);
-  };
 
   return (
     <div className="form-main">
@@ -101,7 +92,7 @@ const handleCheckedState = (e, idx) => {
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
-
+          {errors.name ? "Name: " + errors.name : null}
         </div>
         <label
           htmlFor="name"
@@ -116,7 +107,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setName(e.target.value)}
         />
         <p className="errors">
-
+          {errors.date_of_birth ? "Date of birth: " + errors.date_of_birth[0] : null}
         </p>
         <label
           htmlFor="dateOfBirth"
@@ -132,7 +123,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setDateOfBirth(e.target.value)}
         />
         <p className="errors">
-
+          {errors.place_of_birth ? "Place of Birth: " + errors.place_of_birth : null}
         </p>
         <label
           htmlFor="placeOfBirth"
@@ -147,13 +138,13 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setPlaceOfBirth(e.target.value)}
         />
         <p className="errors">
-
+          {errors.photo_url ? "Photo URL: " + errors.photo_url : null}
         </p>
         <label
           htmlFor="photo"
           className="actor-label"
         >
-          Photo Url
+          Photo URL
         </label>
         <input
           className="actor-input"
@@ -161,6 +152,9 @@ const handleCheckedState = (e, idx) => {
           value={photoUrl}
           onChange={e => setPhotoUrl(e.target.value)}
         />
+        <p className="errors">
+          {errors.bio ? "Biography: " + errors.bio : null}
+        </p>
         <label
           htmlFor="bio"
           className="actor-label"
@@ -192,7 +186,7 @@ const handleCheckedState = (e, idx) => {
                 id={`film-checkbox-${film.id}`}
                 name={film.title}
                 value={film.title}
-                // checked={checkedState[idx]}
+                checked={checkedState === undefined ? false : checkedState[idx]}
                 onChange={e => handleCheckedState(e, idx)}
               />  
             </li>

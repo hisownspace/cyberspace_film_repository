@@ -26,7 +26,7 @@ class Actor(db.Model):
   date_of_birth = db.Column(db.Date, nullable=True)
   place_of_birth = db.Column(db.String(255), nullable=True)
   photo_url = db.Column(db.String(500), nullable=False)
-  bio = db.Column(db.String(2000), nullable=True)
+  bio = db.Column(db.String(5000), nullable=True)
 
   filmography = db.relationship("Film",
                                 secondary=film_cast,

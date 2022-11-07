@@ -28,12 +28,6 @@ const SingleActor = () => {
     return () => setLoaded(false);
   }, [actorId]);
 
-
-  useEffect(() => {
-    console.log(actor);
-    console.log(actor?.filmography)
-  }, [actor]);
-
   if (errors) {
     return <NotFound />;
   } else if (loaded) {
@@ -68,14 +62,18 @@ const SingleActor = () => {
         <div className='single-actor-filmography'>
           <table className='filmography-table'>
             <thead>
-            <h4>
+            <tr>
+              <td>
+              <h4>
               Filmography
             </h4>
+              </td>
+            </tr>
             </thead>
             <tbody>
               {actor?.filmography.map((film, idx) => {
                 return (
-                <tr className='filmography-row' key={`filmography-row-{idx}`}>
+                <tr className='filmography-row' key={`filmography-row-${idx}`}>
                   <td className='filmography-title'>
                     <a href={`/films/${film.id}`}>{film.title}</a>
                   </td>

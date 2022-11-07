@@ -59,3 +59,25 @@ def delete_actor(id):
     db.session.commit()
     return { "message": f"Successfully deleted {actor.name}" }, 204
   return { "errors": "Actor not found!" }, 404
+
+@actor_routes.route("/<int:id>", methods=["PUT"])
+def update_actor(id):
+  form = ActorForm();
+  print(form.data)
+  if form.validate_on_submit():
+    films = []
+    for film_id in form.data["filmography"]:
+      film = Film.query.get(film_id)
+      films.append(film)
+    actor = Actor.query.get(id)
+    actor.name = form.data["name"]
+    actor.date_of_birth = form.data["date_of_birth"]
+    actor.place_of_birth = form.data["place_of_birth"]
+    actor.photo_url = form.data["photo_url"]
+    actor.bio = form.data["bio"]
+    actor.filmography = films
+    db.session.add(actor)
+    db.session.commit()
+    return actor.to_dict(), 200
+  return { "errors": form.errors }, 409
+    

@@ -22,13 +22,13 @@ with app.app_context():
     place_of_birth = "Long Beach, California, USA",
     photo_url = "https://www.syfy.com/sites/syfy/files/styles/blog-post-embedded--tablet/public/2020/09/1498576162376-cage12.jpeg",
     bio = """
-    Nicolas Cage was born Nicolas Kim Coppola in Long Beach, California, the son of comparative literature professor August Coppola (whose brother is director Francis Ford Coppola) and dancer/choreographer Joy Vogelsang. He is of Italian (father) and Polish and German (mother) descent. Cage changed his name early in his career to make his own reputation, succeeding brilliantly with a host of classic, quirky roles by the late 1980s.
+Nicolas Cage was born Nicolas Kim Coppola in Long Beach, California, the son of comparative literature professor August Coppola (whose brother is director Francis Ford Coppola) and dancer/choreographer Joy Vogelsang. He is of Italian (father) and Polish and German (mother) descent. Cage changed his name early in his career to make his own reputation, succeeding brilliantly with a host of classic, quirky roles by the late 1980s.
 
-    Initially studying theatre at Beverly Hills High School (though he dropped out at seventeen), he secured a bit part in Fast Times at Ridgemont High (1982) -- most of which was cut, dashing his hopes and leading to a job selling popcorn at the Fairfax Theater, thinking that would be the only route to a movie career. But a job reading lines with actors auditioning for uncle Francis' Rumble Fish (1983) landed him a role in that film, followed by the punk-rocker in Valley Girl (1983), which was released first and truly launched his career.
+Initially studying theatre at Beverly Hills High School (though he dropped out at seventeen), he secured a bit part in Fast Times at Ridgemont High (1982) -- most of which was cut, dashing his hopes and leading to a job selling popcorn at the Fairfax Theater, thinking that would be the only route to a movie career. But a job reading lines with actors auditioning for uncle Francis' Rumble Fish (1983) landed him a role in that film, followed by the punk-rocker in Valley Girl (1983), which was released first and truly launched his career.
 
-    His one-time passion for method acting reached a personal limit when he smashed a street-vendor's remote-control car to achieve the sense of rage needed for his gangster character in The Cotton Club (1984).
+His one-time passion for method acting reached a personal limit when he smashed a street-vendor's remote-control car to achieve the sense of rage needed for his gangster character in The Cotton Club (1984).
 
-    In his early 20s, he dated Jenny Wright for two years and later linked to Uma Thurman. After a relationship of several years with Christina Fulton, a model, they split amicably and share custody of a son, Weston Cage (b. 1990). He also has a son with his ex-wife, Alice Kim Cage.
+In his early 20s, he dated Jenny Wright for two years and later linked to Uma Thurman. After a relationship of several years with Christina Fulton, a model, they split amicably and share custody of a son, Weston Cage (b. 1990). He also has a son with his ex-wife, Alice Kim Cage.
 """
   )
   
@@ -38,11 +38,11 @@ with app.app_context():
     place_of_birth = "Wilmington, Delaware, USA",
     photo_url = "https://m.media-amazon.com/images/M/MV5BOWFkZTIxN2ItODhlOC00MDMwLWEyYTEtZWMxNWQ2MzU3ZjZmXkEyXkFqcGdeQXVyNjk1MjYyNTA@._V1_.jpg",
     bio = """
-    Elisabeth Shue was born in Wilmington, Delaware, to Anne Brewster (Wells), who worked for the Chemical Banking Corporation, and James William Shue, a lawyer and real estate developer. She is of German and English ancestry, including descent from Mayflower passengers. Shue's parents divorced while she was in the fourth grade. Owing to the occupational demands of her parents, Shue and her siblings found plenty of time to get into trouble in their suburban neighborhood, but Elisabeth soon enrolled in Wellesley College, an all-female institution which kept her out of trouble.
+Elisabeth Shue was born in Wilmington, Delaware, to Anne Brewster (Wells), who worked for the Chemical Banking Corporation, and James William Shue, a lawyer and real estate developer. She is of German and English ancestry, including descent from Mayflower passengers. Shue's parents divorced while she was in the fourth grade. Owing to the occupational demands of her parents, Shue and her siblings found plenty of time to get into trouble in their suburban neighborhood, but Elisabeth soon enrolled in Wellesley College, an all-female institution which kept her out of trouble.
 
-    During her studies, she found a way to make a little extra money by acting in television commercials. Elisabeth became a common sight in ads for Burger King, DeBeers diamonds, and Hellman's mayonnaise. In 1984, she landed a role in the The Karate Kid (1984) as the on-screen girlfriend of Ralph Macchio and a role as the teenage daughter of a military family in the short-lived series Call to Glory (1984). At this time, Shue got herself an acting coach and transferred to Harvard, where she began studying political science.
+During her studies, she found a way to make a little extra money by acting in television commercials. Elisabeth became a common sight in ads for Burger King, DeBeers diamonds, and Hellman's mayonnaise. In 1984, she landed a role in the The Karate Kid (1984) as the on-screen girlfriend of Ralph Macchio and a role as the teenage daughter of a military family in the short-lived series Call to Glory (1984). At this time, Shue got herself an acting coach and transferred to Harvard, where she began studying political science.
 
-    She continued her acting work with Adventures in Babysitting (1987), Cocktail (1988), Soapdish (1991) and The Marrying Man (1991). Unfortunately, time was catching up with the impressive girl-next-door. Her brother Andrew Shue had almost eclipsed her own fame by landing a starring role in the hit TV series Melrose Place (1992). It was at this time that Elisabeth took a chance on a low-budget, high-risk project entitled Leaving Las Vegas (1995), directed by Mike Figgis. Her gutsy portrayal of a prostitute mixed up with a suicidal alcoholic paid off as she was recognized with a Best Actress nomination at the Academy Awards that year. This was the turning point of her career. What followed was a barrage of film roles, including The Saint (1997), Woody Allen's Deconstructing Harry (1997), Palmetto (1998) and Hollow Man (2000).
+She continued her acting work with Adventures in Babysitting (1987), Cocktail (1988), Soapdish (1991) and The Marrying Man (1991). Unfortunately, time was catching up with the impressive girl-next-door. Her brother Andrew Shue had almost eclipsed her own fame by landing a starring role in the hit TV series Melrose Place (1992). It was at this time that Elisabeth took a chance on a low-budget, high-risk project entitled Leaving Las Vegas (1995), directed by Mike Figgis. Her gutsy portrayal of a prostitute mixed up with a suicidal alcoholic paid off as she was recognized with a Best Actress nomination at the Academy Awards that year. This was the turning point of her career. What followed was a barrage of film roles, including The Saint (1997), Woody Allen's Deconstructing Harry (1997), Palmetto (1998) and Hollow Man (2000).
 """
   )
   
@@ -92,7 +92,7 @@ Steven enjoys playing guitar. His parents own beauty supply stores in Detroit, M
     title = "Leaving Las Vegas",
     year = 1991,
     plot = """
-    Ben Sanderson, a Hollywood screenwriter who lost everything because of his alcoholism, arrives in Las Vegas to drink himself to death. There, he meets and forms an uneasy friendship and non-interference pact with prostitute Sera.
+Ben Sanderson, a Hollywood screenwriter who lost everything because of his alcoholism, arrives in Las Vegas to drink himself to death. There, he meets and forms an uneasy friendship and non-interference pact with prostitute Sera.
     """,
     cast = [actor1, actor2],
     photo_url = 'https://m.media-amazon.com/images/M/MV5BNDg3MDM5NTI0MF5BMl5BanBnXkFtZTcwNDY0NDk0NA@@._V1_.jpg',
@@ -103,7 +103,7 @@ Steven enjoys playing guitar. His parents own beauty supply stores in Detroit, M
     title = "Sorry to Bother You",
     year = 2018,
     plot = """
-    In an alternate present-day version of Oakland, telemarketer Cassius Green discovers a magical key to professional success, propelling him into a universe of greed.
+In an alternate present-day version of Oakland, telemarketer Cassius Green discovers a magical key to professional success, propelling him into a universe of greed.
     """,
     cast = [actor3, actor4, actor5],
     photo_url = 'https://m.media-amazon.com/images/M/MV5BNjgwMmI4YzUtZGI2Mi00M2MwLWIyMmMtZWYzMWZmNzAyNmYwXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',

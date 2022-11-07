@@ -4,10 +4,6 @@ import DeleteActor from './DeleteActor';
 import "./DeleteActor.css";
 
 function DeleteActorModal({ showModal, setShowModal, name, id }) {
-  // const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    console.log(name);
-  }, []);
 
   return (
     <>
