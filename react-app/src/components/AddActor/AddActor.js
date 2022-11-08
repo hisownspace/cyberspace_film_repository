@@ -8,7 +8,6 @@ function AddActor() {
   const [photoUrl, setPhotoUrl] = useState("");
   const [bio, setBio] = useState("");
   const [films, setFilms] = useState([]);;
-  const [selectedFilms, setSelectedFilms] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
@@ -36,9 +35,10 @@ const handleCheckedState = (e, idx) => {
       } else {
         const data = await res.json();
         if (data.errors) {
-          setErrors(errors);
+          setErrors(data.errors);
           console.log(data.errors);
         }
+        setSubmitted(true);
       }
     })()
   }, []);
@@ -92,7 +92,7 @@ const handleCheckedState = (e, idx) => {
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
-          {errors.name ? "Name: " + errors.name : null}
+          {errors.name && submitted ? "Name: " + errors.name[0] : null}
         </div>
         <label
           htmlFor="name"
@@ -107,7 +107,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setName(e.target.value)}
         />
         <p className="errors">
-          {errors.date_of_birth ? "Date of birth: " + errors.date_of_birth[0] : null}
+          {errors.date_of_birth && submitted ? "Date of birth: " + errors.date_of_birth[0] : null}
         </p>
         <label
           htmlFor="dateOfBirth"
@@ -123,7 +123,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setDateOfBirth(e.target.value)}
         />
         <p className="errors">
-          {errors.place_of_birth ? "Place of Birth: " + errors.place_of_birth : null}
+          {errors.place_of_birth && submitted ? "Place of Birth: " + errors.place_of_birth : null}
         </p>
         <label
           htmlFor="placeOfBirth"
@@ -138,7 +138,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setPlaceOfBirth(e.target.value)}
         />
         <p className="errors">
-          {errors.photo_url ? "Photo URL: " + errors.photo_url : null}
+          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
         </p>
         <label
           htmlFor="photo"
@@ -153,7 +153,7 @@ const handleCheckedState = (e, idx) => {
           onChange={e => setPhotoUrl(e.target.value)}
         />
         <p className="errors">
-          {errors.bio ? "Biography: " + errors.bio : null}
+          {errors.bio && submitted ? "Biography: " + errors.bio : null}
         </p>
         <label
           htmlFor="bio"
@@ -186,7 +186,7 @@ const handleCheckedState = (e, idx) => {
                 id={`film-checkbox-${film.id}`}
                 name={film.title}
                 value={film.title}
-                checked={checkedState === undefined ? false : checkedState[idx]}
+                checked={checkedState[idx] === undefined ? false : checkedState[idx]}
                 onChange={e => handleCheckedState(e, idx)}
               />  
             </li>

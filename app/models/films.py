@@ -25,7 +25,7 @@ class Film(db.Model):
 
   cast = db.relationship("Actor", secondary="film_cast", back_populates="filmography")
   
-  def to_dict(self, from_actor=False):
+  def to_dict(self, from_actor=False, from_genre=False):
     """
     Returns a dict representing the film:
     { id,
@@ -42,6 +42,7 @@ class Film(db.Model):
       "year": self.year,
       "plot": self.plot,
       "photo_url": self.photo_url,
-      "cast": [actor.id for actor in self.cast] if from_actor else [actor.to_dict(True) for actor in self.cast]
+      "cast": [actor.id for actor in self.cast] if from_actor else [actor.to_dict(True) for actor in self.cast],
+      "genre": self.genre.id if from_genre else self.genre.to_dict(from_film=True)
     }
   

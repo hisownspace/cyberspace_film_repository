@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import ActorCard from '../ActorCard';
 import NotFound from '../NotFound';
 import DeleteActorModal from '../DeleteActorModal';
 
@@ -36,7 +35,7 @@ const SingleActor = () => {
         {actor ? 
             <div className='single-actor-focus'>
               <div className="single-actor-photo-container">
-                <img className="single-actor-photo" src={actor.photo_url}></img>
+                <img alt={actor.name} className="single-actor-photo" src={actor.photo_url} />
               </div>
               <div className='single-actor-heading'>
                 <h4>
@@ -49,11 +48,11 @@ const SingleActor = () => {
                 </div>
                 <div>
                 <p><b>Born:</b> {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
-                <p>
+                <div className='single-actor-options'>
                   <a className="edit-actor-link" href={`/actors/${actor.id}/edit`}>Edit Actor</a>
                   &emsp;
-                  <a className="delete-actor-link" onClick={() => setShowModal(true)}>Delete Actor</a>
-                </p>
+                  <div className="delete-actor-link" onClick={() => setShowModal(true)}>Delete Actor</div>
+                </div>
               </div>
               </div>
             </div>

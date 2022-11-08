@@ -1,4 +1,3 @@
-import ActorCard from "../ActorCard";
 import { useHistory } from "react-router-dom";
 
 

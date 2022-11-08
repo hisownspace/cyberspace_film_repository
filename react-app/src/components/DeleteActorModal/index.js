@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { Modal } from '../../context/Modal';
 import DeleteActor from './DeleteActor';
 import "./DeleteActor.css";

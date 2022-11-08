@@ -14,3 +14,11 @@ class Genre(db.Model):
   name = db.Column(db.String(50), unique=True)
   
   films = db.relationship("Film", back_populates="genre")
+
+  def to_dict(self, from_film=False):
+    print(self.films)
+    return {
+      "id": self.id,
+      "name": self.name,
+      "films": [film.id for film in self.films] if from_film else { film.to_dict(from_genre=True) for film in self.films }
+    }

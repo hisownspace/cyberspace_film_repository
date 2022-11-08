@@ -8,8 +8,6 @@ function EditActor() {
   const [photoUrl, setPhotoUrl] = useState("");
   const [bio, setBio] = useState("");
   const [films, setFilms] = useState([]);
-  const [filmRoles, setFilmRoles] = useState([]);
-  const [selectedFilms, setSelectedFilms] = useState([]);
   const [checkedState, setCheckedState] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [errors, setErrors] = useState({});
@@ -31,15 +29,12 @@ function EditActor() {
         const day = dob.toLocaleString("default", { day: "2-digit" });
         dob = year + "-" + month + "-" + day;
         setDateOfBirth(dob);
-        console.log(dateOfBirth.toLocaleString());
         setPlaceOfBirth(actor.place_of_birth);
         setPhotoUrl(actor.photo_url);
         setBio(actor.bio);
-        setFilmRoles(actor.filmography);
-        const roleIndexes = []
         const tempChecked = new Array(films.length).fill(false);
-        for (let i = 0; i < filmRoles.length; i++) {
-          const found = films.find(film => film.id === filmRoles[i].id);
+        for (let i = 0; i < actor.filmography.length; i++) {
+          const found = films.find(film => film.id === actor.filmography[i].id);
           if (found) {
             tempChecked[i] = true;
           }
@@ -49,7 +44,7 @@ function EditActor() {
     }
     )()
     setLoaded(true);
-  }, [id, films]);
+  }, [id, films, dateOfBirth]);
 
   const handleCheckedState = (e, idx) => {
     const tempCheckedState = [...checkedState];
@@ -113,16 +108,10 @@ function EditActor() {
     } else {
       const data = await res.json();
       if (data.errors) {
-        console.log(data.errors);
+        setErrors(data.errors);
       }
     }
   }
-
-  const addFilm = (e, idx) => {
-    const tempFilms = selectedFilms;
-    selectedFilms[idx] = !selectedFilms[idx];
-    setSelectedFilms(tempFilms);
-  };
 
   return (
     loaded ? <div className="form-main">
@@ -131,7 +120,7 @@ function EditActor() {
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
-          {errors.name ? errors.name : null}
+          {errors.name? errors.name : null}
         </div>
         <label
           htmlFor="name"

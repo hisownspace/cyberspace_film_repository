@@ -80,6 +80,7 @@
 }
 
 .edit-actor-link {
+  display: inline;
   font-size: 12px;
 }
 
@@ -110,5 +111,10 @@
   cursor: pointer;
   color: blue;
   text-decoration: underline;
+  display: inline;
   font-size: 12px;
+}
+
+.single-actor-options {
+  margin-bottom: 7px;
 }
