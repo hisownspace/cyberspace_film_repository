@@ -24,10 +24,11 @@ function EditActor() {
         const actor = data[id];
         setName(actor.name);
         let dob = new Date(actor.date_of_birth);
-        const year = dob.toLocaleString("default", { year: "numeric" });
-        const month = dob.toLocaleString("default", { month: "2-digit" })
-        const day = dob.toLocaleString("default", { day: "2-digit" });
-        dob = year + "-" + month + "-" + day;
+        // const year = dob.toLocaleString("default", { year: "numeric" });
+        // const month = dob.toLocaleString("default", { month: "2-digit" })
+        // const day = dob.toLocaleString("default", { day: "2-digit" });
+        // dob = year + "-" + month + "-" + day;
+        dob = dob.toISOString().split("T")[0];
         setDateOfBirth(dob);
         setPlaceOfBirth(actor.place_of_birth);
         setPhotoUrl(actor.photo_url);
