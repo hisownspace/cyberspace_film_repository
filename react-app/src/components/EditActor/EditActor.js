@@ -35,9 +35,9 @@ function EditActor() {
         setBio(actor.bio);
         const tempChecked = new Array(films.length).fill(false);
         for (let i = 0; i < actor.filmography.length; i++) {
-          const found = films.find(film => film.id === actor.filmography[i].id);
-          if (found) {
-            tempChecked[i] = true;
+          const found = films?.findIndex(film => film.id === actor.filmography[i].id);
+          if (found >= 0) {
+            tempChecked[found] = true;
           }
         }        
         setCheckedState(tempChecked);
