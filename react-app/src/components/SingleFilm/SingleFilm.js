@@ -28,6 +28,7 @@ function SingleFilm () {
   } else if (loaded) {
     return (
         <div className="single-film-main">
+          <div className="single-film-top">
           {film ?
           <div className="single-film-focus">
             <div className="single-film-heading">
@@ -59,7 +60,12 @@ function SingleFilm () {
             </div>
           </div>
           : null}
-        </div>
+ 
+          </div>
+          <div className="single-film-cast">
+              Hello!
+          </div>
+       </div>
     )
   } else {
     return null;
