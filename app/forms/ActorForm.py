@@ -15,7 +15,8 @@ class ActorForm(FlaskForm):
   bio = StringField("String", [Length(max=5000)])
   filmography = SelectMultipleField("Films", choices=[], validate_choice=False, coerce=int)
   
-  def validate_photo(form, field):
+  def validate_photo_url(form, field):
+    print("hello!~")
     try:
       content_type = urlopen(field.data).info()["content-type"]
       print(content_type)
