@@ -1,8 +1,8 @@
 """initial migration
 
-Revision ID: 5c2f75ba82ee
+Revision ID: 8122ab41235c
 Revises: 
-Create Date: 2022-11-03 11:22:34.810943
+Create Date: 2022-11-08 16:48:51.867698
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5c2f75ba82ee'
+revision = '8122ab41235c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('date_of_birth', sa.Date(), nullable=True),
     sa.Column('place_of_birth', sa.String(length=255), nullable=True),
     sa.Column('photo_url', sa.String(length=500), nullable=False),
-    sa.Column('bio', sa.String(length=2000), nullable=True),
+    sa.Column('bio', sa.String(length=5000), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('genres',
@@ -44,10 +44,11 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('film_cast',
-    sa.Column('film_id', sa.Integer(), nullable=True),
-    sa.Column('actor_id', sa.Integer(), nullable=True),
+    sa.Column('film_id', sa.Integer(), nullable=False),
+    sa.Column('actor_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['actor_id'], ['actors.id'], ),
-    sa.ForeignKeyConstraint(['film_id'], ['films.id'], )
+    sa.ForeignKeyConstraint(['film_id'], ['films.id'], ),
+    sa.PrimaryKeyConstraint('film_id', 'actor_id')
     )
     # ### end Alembic commands ###
 

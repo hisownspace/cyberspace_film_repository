@@ -3,22 +3,21 @@ from app.models.db import db
 
 film_cast = db.Table(
   "film_cast",
-  db.Column("film_id", db.ForeignKey("films.id")),
-  db.Column("actor_id", db.ForeignKey("actors.id"))
+  db.Column("film_id", db.Integer, db.ForeignKey("films.id"), primary_key=True),
+  db.Column("actor_id", db.Integer, db.ForeignKey("actors.id"), primary_key=True)
 )
 db.Table
 
 class Actor(db.Model):
   """
   A SQLAlchemy.Model child class representing the Actors table in our database\n
-  :param name: the full name of actor\n
-  :param date_of_birth: the birthdate of the actor\n
-  :param place_of_birth: the date of death of the actor (if applicable)\n
-  :param photo: a link to a photo of the actor\n 
-  :param bio: a short description of the life of the actor\n
-  :param filmography: a list of the films the actor has had a role in (m2m through film_cast)\n
+  @param name: the full name of actor\n
+  @param date_of_birth: the birthdate of the actor\n
+  @param place_of_birth: the date of death of the actor (if applicable)\n
+  @param photo_url: a link to a photo of the actor\n 
+  @param bio: a short description of the life of the actor\n
+  @param filmography: a list of the films the actor has had a role in (m2m through film_cast)\n
   """
-
   __tablename__ = "actors"
   
   id = db.Column(db.Integer, primary_key=True)

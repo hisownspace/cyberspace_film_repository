@@ -5,10 +5,11 @@ from app.models.db import db
 class Film(db.Model):
   """
   A SQLAlchemy.Model child class representing the Actors table in our database\n
-  param title: the title of the movie\n
-  :param year: the year in which the movie is made\n
-  :param plot: a description of the plot of the film - not required\n
-  :param cast: a list of the actors in the movie (m2m through film_cast)\n
+  @param title: the title of the movie\n
+  @param year: the year in which the movie is made\n
+  @param plot: a description of the plot of the film - not required\n
+  @param photo_url: a link to a photo of the movie poster\n
+  @param cast: a list of the actors in the movie (m2m through film_cast)\n
   """
   
   __tablename__ = "films"
@@ -18,7 +19,7 @@ class Film(db.Model):
   year = db.Column(db.Integer, nullable=False)
   plot = db.Column(db.String(2000), nullable=True)
   photo_url = db.Column(db.String(1000), nullable=False)
-  genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"))  
+  genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=False)  
   
   
   genre = db.relationship("Genre", back_populates="films")
