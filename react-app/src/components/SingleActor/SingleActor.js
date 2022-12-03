@@ -9,23 +9,23 @@ const SingleActor = () => {
   const [actor, setActor] = useState();
   const [errors, setErrors] = useState(false)
 
-  const actorId = useParams().id;
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
 
 
   
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/api/actors/${actorId}`);
+      const res = await fetch(`/api/actors/${id}`);
       if (res.ok) {
         const actor = await res.json();
-        setActor(actor[actorId]);
+        setActor(actor[id]);
       } else {
         setErrors(res.status);
       };
     })().then(setLoaded(true));
     return () => setLoaded(false);
-  }, [actorId]);
+  }, [id]);
 
   if (errors) {
     return <NotFound />;

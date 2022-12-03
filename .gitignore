@@ -2,3 +2,4 @@
 instance/
 instance/*
 react-app/node_modules/
+.venv

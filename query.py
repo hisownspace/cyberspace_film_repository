@@ -11,8 +11,8 @@ with app.app_context():
   pprint(type(actor))
   pprint(actor.to_dict())
   
-  actors = Actor.query.all()
+  # actors = Actor.query.all()
   
-  pprint(actors)
-  pprint(type(actors))
-  pprint({ actor.id: actor.to_dict() for actor in actors })
+  # pprint(actors)
+  # pprint(type(actors))
+  # pprint({ actor.id: actor.to_dict() for actor in actors })

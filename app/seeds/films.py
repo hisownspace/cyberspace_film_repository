@@ -49,7 +49,10 @@ def seed_films(actors, genres):
     plot = """A young girl risks everything to prevent a powerful, multinational company from kidnapping her best friend - a fascinating beast named Okja.""",
     cast = [steve_yeun, til_swin, seo_ahn],
     photo_url = "https://m.media-amazon.com/images/M/MV5BMjQxMTcxNDgxN15BMl5BanBnXkFtZTgwOTczNTIzMjI@._V1_FMjpg_UX509_.jpg",
-    genre = drama
+    genre = drama 
+  )
+  
+  snowden = Film(
     
   )
   

@@ -32,24 +32,24 @@ def all_actors():
     db.session.add(actor)
     db.session.commit()
 
-    return actor.to_dict()
+    return actor.to_dict(), 201, { "Content-Type": "application/json" }
   
   elif form.errors:
-    return { "errors": form.errors }, 409
+    return { "errors": form.errors }, 409, { "Content-Type": "application/json" }
   else:
     actors = Actor.query.all()
-    return { actor.id: actor.to_dict() for actor in actors }, 200
+    return { actor.id: actor.to_dict() for actor in actors }, 200, { "Content-Type": "application/json" }
 
 @actor_routes.route("/<int:id>") 
 def one_actor(id):
   actor = Actor.query.get(id)
   if actor:
-    return { actor.id: actor.to_dict() }, 200
-  return { "errors": "Actor not found!" }, 404
+    return { actor.id: actor.to_dict() }, 200, { "Content-Type": "application/json" }
+  return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
   
 @actor_routes.route("/count")
 def actor_count():
-  return { "totalActors": Actor.query.count() }, 200
+  return { "totalActors": Actor.query.count() }, 200, { "Content-Type": "application/json" }
 
 @actor_routes.route("/<int:id>", methods=["DELETE"])
 def delete_actor(id):
@@ -57,13 +57,14 @@ def delete_actor(id):
   if actor:
     db.session.delete(actor)
     db.session.commit()
-    return { "message": f"Successfully deleted {actor.name}" }, 204
-  return { "errors": "Actor not found!" }, 404
+    return { "message": f"Successfully deleted {actor.name}" }, 204, { "Content-Type": "application/json" }
+  return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
 
 @actor_routes.route("/<int:id>", methods=["PUT"])
 def update_actor(id):
   form = ActorForm();
-  print(form.data)
+  form["csrf_token"].data = request.cookies["csrf_token"]
+  # print(form.data)
   if form.validate_on_submit():
     films = []
     for film_id in form.data["filmography"]:
@@ -78,6 +79,7 @@ def update_actor(id):
     actor.filmography = films
     db.session.add(actor)
     db.session.commit()
-    return actor.to_dict(), 200
-  return { "errors": form.errors }, 409
+    return actor.to_dict(), 200, { "Content-Type": "application/json" }
+  # print(form.errors)
+  return { "errors": form.errors }, 409, { "Content-Type": "application/json" }
     

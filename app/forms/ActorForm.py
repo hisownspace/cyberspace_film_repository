@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired, Length, URL, ValidationError, Optio
 from urllib.request import urlopen
 
 class ActorForm(FlaskForm):
-  class Meta:
-    csrf = False
+  # class Meta:
+  #   csrf = False
 
 
   name = StringField("Name", [DataRequired(), Length(min=3, max=255)])
@@ -16,11 +16,11 @@ class ActorForm(FlaskForm):
   filmography = SelectMultipleField("Films", choices=[], validate_choice=False, coerce=int)
   
   def validate_photo_url(form, field):
-    print("hello!~")
+    # print("hello!~")
     try:
       content_type = urlopen(field.data).info()["content-type"]
-      print(content_type)
-      print(urlopen(field.data).info())
+      # print(content_type)
+      # print(urlopen(field.data).info())
     except:
       raise ValidationError("Must be a valid URL.")
     if "image" not in content_type:
