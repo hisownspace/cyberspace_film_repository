@@ -24,16 +24,21 @@ app.register_blueprint(film_routes)
 @app.route("/")
 def index():
   """This is the splash page for the Cyberspace Film Repository"""
-  return render_template("index.html")
+  # return render_template("index.html")
   return "Welcome to the Cyberspace Film Repository!"
 
 @app.route("/api/help")
 def help():
-  """This route provides the backend routes!"""
+  """This route provides information about all the backend routes!"""
   func_list = {}
   for rule in app.url_map.iter_rules():
+    print(rule)
     if rule.endpoint != 'static':
-      func_list[rule.rule] = app.view_functions[rule.endpoint].__doc__
+      for method in rule.methods:
+        if method != "OPTIONS" and method != "HEAD":
+          endpoint_method = method
+      key = endpoint_method + " " + rule.rule
+      func_list[key] = app.view_functions[rule.endpoint].__doc__
   return jsonify(func_list)
 
 @app.after_request

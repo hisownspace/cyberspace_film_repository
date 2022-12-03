@@ -28,6 +28,7 @@ def film_count():
 
 @film_routes.route("/", methods=["POST"])
 def add_film():
+  """Receives a json representing an html form, converts it to a FlaskForm,validates the form, and if valid creates a new row in the films table of the database for the movie submitted. It returns a dictionary representing that movie."""
   form = FilmForm()
   form["csrf_token"].data = request.cookies["csrf_token"]
   
