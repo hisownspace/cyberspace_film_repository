@@ -222,7 +222,7 @@ function AddFilm() {
           defaultValue={"-- Please Select a Genre --"}
           onChange={e => setGenreId(e.target.value)}
         >
-        <option value="" disabled selected>-- Please Select a Genre --</option>
+        <option disabled>-- Please Select a Genre --</option>
         {genres.map((genre, idx) => {
           return <option key={idx} value={genre[0]}>{genre[1]}</option>
         })}
