@@ -42,8 +42,8 @@ def add_film():
     }
     film = Film(**params)
     
+    # dealing with db.relationship by appending to cast list
     cast = json.loads(form.data["castIds"])
-
     for id in cast:
       actor = Actor.query.get(id)
       film.cast.append(actor)
@@ -69,6 +69,8 @@ def edit_film(id):
     film.photo_url = form.data["photo_url"]
     film.genre_id = form.data["genre_id"]
 
+    # dealing with db.relationship by appending to new list, and replacing old
+    # cast relationship list with new list
     cast = []
     for actor_id in form.data["cast"]:
       actor = Actor.query.get(actor_id)

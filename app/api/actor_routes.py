@@ -15,6 +15,10 @@ def all_actors():
 
   if form.validate_on_submit():
 
+    # dealing with db.relationship on filmography by finding
+    # films that correspond with the ids in the list received
+    # in the form and appending each Film instance to filmography
+    # relationship on the Actor instance
     filmography = form.data["filmography"]
     for idx, id in enumerate(filmography):
       film = Film.query.get(id)
@@ -69,6 +73,9 @@ def update_actor(id):
   if form.validate_on_submit():
     actor = Actor.query.get(id)
 
+    # dealing with db.relationship by creating new list, adding
+    # all the values from the list in the form, and replacing
+    # the actor.films relationship list with new list
     films = []
     for film_id in form.data["filmography"]:
       film = Film.query.get(film_id)
