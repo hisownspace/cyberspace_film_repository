@@ -58,7 +58,7 @@ function AddFilm() {
 
   const clearSearch = () => {
     setMatches([]);
-    setCastSearch("");
+    // setCastSearch("");
   };
 
   const searchActors = e => {
@@ -213,8 +213,9 @@ function AddFilm() {
           value={castSearch}
           onChange={searchActors}
           onBlur={clearSearch}
+          onFocus={searchActors}
         />
-        <ul className={matches.length ? "search-dropdown" : "search-dropdown-hidden"}>
+        {matches.length ? <ul className="search-dropdown">
         {matches.map(actor => {
           return (
             <li 
@@ -226,7 +227,7 @@ function AddFilm() {
           )
         })
         }
-        </ul>
+        </ul> : null}
 
         <div className="buttonHole" id="search-allowance-buttons">
           <button className="cancel" type="button" onClick={handleCancel}>Cancel</button>
