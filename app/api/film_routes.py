@@ -44,15 +44,20 @@ def add_film():
     
     # dealing with db.relationship by appending to cast list
     cast = json.loads(form.data["castIds"])
+    print(cast)
     for id in cast:
+      print(id)
       actor = Actor.query.get(id)
+      print(actor.name)
       film.cast.append(actor)
     
     try:
       db.session.add(film)
       db.session.commit()
+      return film.to_dict()
     except Exception as e:
       return { "errors": str(e) }
+  return { "errors": form.errors }, 400
     
 @film_routes.route("/<int:id>", methods=["PUT"])
 def edit_film(id):

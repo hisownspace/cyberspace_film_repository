@@ -12,7 +12,7 @@
   box-sizing: border-box;
   border-top: none;
   font-size: 12px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.825);
 }
 
 .search-dropdown-hidden {
@@ -34,10 +34,40 @@
 .search-dropdown li:hover {
   cursor: pointer;
   color: grey;
-  /* font-weight: bold; */
 }
 
 
 #search-allowance-buttons {
   margin-top: max(75px, 5%);
+}
+
+.cast-member {
+  border: 1px solid black;
+  font-size: 13px;
+  padding: 2px 10px;
+  margin: 5px 3px 0 0;
+  border-radius: 50px;
+  line-height: 17px;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+.cast-member-hover {
+  border: 2px solid grey;
+  font-size: 13px;
+  padding: 2px 10px;
+  margin: 4px 2px -1px -1px;
+  border-radius: 50px;
+  line-height: 17px;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: default;
+  color: grey;
+}
+
+.remove-cast-member {
+  line-height: 13px;
+  vertical-align: text-top;
+  cursor: pointer;
 }

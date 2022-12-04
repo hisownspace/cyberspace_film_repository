@@ -67,7 +67,7 @@ function AddFilm() {
     const nameMatches = [];
     for (let i = 0; i < actors.length; i++) {
       const name = actors[i].name.toLowerCase()
-      if (name.includes(param)) {
+      if (name.includes(param) && cast.indexOf(actors[i]) === -1) {
         nameMatches.push(actors[i]);
       };
     };
@@ -78,10 +78,35 @@ function AddFilm() {
     }
   };
 
+  const addToCast = actor => {
+    const tempCast = [ ...cast ];
+    tempCast.push(actor);
+    setCast(tempCast);
+    setCastSearch("");
+    setMatches([]);
+  };
+
+  const removeFromCast = actor => {
+    const newCast = cast.filter(elem => elem !== actor);
+    setCast(newCast);
+  };
+
+  const toggleClass = (e, action) => {
+    if (action === "enter") {
+    e.target.parentElement.className = "cast-member-hover";
+    } else {
+    e.target.parentElement.className = "cast-member";
+    }
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // const cast = [];
+    const castIds = [];
+    for (let i = 0; i < cast.length; i++) {
+      castIds.push(cast[i].id.toString());
+    };
+    console.log(castIds);
 
     const filmForm = {
       title,
@@ -89,7 +114,7 @@ function AddFilm() {
       plot,
       "photo_url": photoUrl,
       "genre_id": genreId,
-      cast
+      castIds: JSON.stringify(castIds)
     }
 
     const res = await fetch ("/api/films/",
@@ -123,7 +148,7 @@ function AddFilm() {
       </h1>
       <form className="addActorForm" onSubmit={handleSubmit}>
         <div className="errors">
-          {errors.name && submitted ? "Title: " + errors.title[0] : null}
+          {errors.title && submitted ? "Title: " + errors.title : null}
         </div>
         <label
           htmlFor="title"
@@ -168,7 +193,7 @@ function AddFilm() {
           onChange={e => setPlot(e.target.value)}
         />
         <p className="errors">
-          {errors.photo_url && submitted ? "Photo URL: " + errors.phot_url : null}
+          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
         </p>
         <label
           htmlFor="photo"
@@ -183,7 +208,7 @@ function AddFilm() {
           onChange={e => setPhotoUrl(e.target.value)}
         />
         <p className="errors">
-          {errors.genre_id && submitted ? "Genre ID: " + errors.genre_id : null}
+          {errors.genre_id && submitted ? "Genre ID: Please Select A Genre" : null}
         </p>
         <label
           htmlFor="genreId"
@@ -194,9 +219,10 @@ function AddFilm() {
         <select
           className="actor-input"
           id="genreId"
-          value={genreId}
+          defaultValue={"-- Please Select a Genre --"}
           onChange={e => setGenreId(e.target.value)}
         >
+        <option value="" disabled selected>-- Please Select a Genre --</option>
         {genres.map((genre, idx) => {
           return <option key={idx} value={genre[0]}>{genre[1]}</option>
         })}
@@ -219,7 +245,7 @@ function AddFilm() {
         {matches.map(actor => {
           return (
             <li 
-              onClick={() => console.log("clicked!")}
+              onClick={() => addToCast(actor)}
             >
               {actor.name}
             </li>
@@ -227,7 +253,20 @@ function AddFilm() {
         })
         }
         </ul> : null}
-
+        <div className="cast-list">
+          {cast.map(actor => {
+            return (
+              <span className="cast-member">
+                {actor.name}&ensp;&nbsp;<b
+                  className="remove-cast-member"
+                  onMouseOver={e => toggleClass(e, "enter")}
+                  onMouseLeave={e => toggleClass(e, "leave")}
+                  onClick={() => removeFromCast(actor)}
+                  >x</b>
+              </span>
+            )
+          })}
+        </div>
         <div className="buttonHole" id="search-allowance-buttons">
           <button className="cancel" type="button" onClick={handleCancel}>Cancel</button>
           <button>Submit</button>

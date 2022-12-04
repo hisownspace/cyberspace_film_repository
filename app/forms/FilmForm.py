@@ -10,7 +10,7 @@ class FilmForm(FlaskForm):
   plot = TextAreaField(validators=[Length(max=2000)])
   photo_url = StringField(validators=[DataRequired(), Length(max=1000), URL(require_tld=True, message="Photo must ve a valid URL!")])
   genre_id = IntegerField()
-  cast = StringField()
+  castIds = StringField()
 
 def validate_photo_url(form, field):
   try:
