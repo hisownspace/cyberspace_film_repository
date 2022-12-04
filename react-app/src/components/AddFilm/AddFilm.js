@@ -214,12 +214,11 @@ function AddFilm() {
           onChange={searchActors}
           onBlur={clearSearch}
         />
-        <ul className={matches.length ? "search-dropdown" : "search-dropdown-hidden"}>
+        <ul onMouseDown={e => e.preventDefault()} className={matches.length ? "search-dropdown" : "search-dropdown-hidden"}>
         {matches.map(actor => {
           return (
             <li 
               onClick={() => console.log("clicked!")}
-              onMouseDown={e => e.preventDefault()}
             >
               {actor.name}
             </li>
