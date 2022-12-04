@@ -215,12 +215,12 @@ function AddFilm() {
           onBlur={clearSearch}
           onFocus={searchActors}
         />
-        {matches.length ? <ul className="search-dropdown">
+        {matches.length ? <ul onMouseDown={e => e.preventDefault()}className="search-dropdown">
         {matches.map(actor => {
           return (
             <li 
               onClick={() => console.log("clicked!")}
-              onMouseDown={e => e.preventDefault()}
+
             >
               {actor.name}
             </li>
