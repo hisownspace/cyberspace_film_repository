@@ -54,3 +54,32 @@ def add_film():
     except Exception as e:
       return { "errors": str(e) }
     
+@film_routes.route("/<int:id>", methods=["PUT"])
+def edit_film(id):
+  form = FilmForm()
+
+  form["csrf_token"].data = request.cookies["csrf_token"]
+
+  if form.validate_on_submit():
+    film = Film.query.get(id)
+
+    film.title = form.data["title"]
+    film.year = form.data["year"]
+    film.plot = form.data["plot"]
+    film.photo_url = form.data["photo_url"]
+    film.genre_id = form.data["genre_id"]
+
+    cast = []
+    for actor_id in form.data["cast"]:
+      actor = Actor.query.get(actor_id)
+      cast.append(actor)
+    film.cast = cast
+    
+    try:
+      db.session.add(film)
+      db.session.commit()
+    except Exception as e:
+      return { "errors": str(e) }, 500
+    return film.to_dict(), 200
+  
+  return { "errors": form.errors }, 400

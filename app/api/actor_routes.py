@@ -63,24 +63,30 @@ def delete_actor(id):
 
 @actor_routes.route("/<int:id>", methods=["PUT"])
 def update_actor(id):
-  form = ActorForm();
+  form = ActorForm()
   form["csrf_token"].data = request.cookies["csrf_token"]
   # print(form.data)
   if form.validate_on_submit():
+    actor = Actor.query.get(id)
+
     films = []
     for film_id in form.data["filmography"]:
       film = Film.query.get(film_id)
       films.append(film)
-    actor = Actor.query.get(id)
+
     actor.name = form.data["name"]
     actor.date_of_birth = form.data["date_of_birth"]
     actor.place_of_birth = form.data["place_of_birth"]
     actor.photo_url = form.data["photo_url"]
     actor.bio = form.data["bio"]
     actor.filmography = films
-    db.session.add(actor)
-    db.session.commit()
+
+    try:
+      db.session.add(actor)
+      db.session.commit()
+    except Exception as e:
+      return { "errors": str(e) }, 500
+
     return actor.to_dict(), 200, { "Content-Type": "application/json" }
   # print(form.errors)
-  return { "errors": form.errors }, 409, { "Content-Type": "application/json" }
-    
+  return { "errors": form.errors }, 400, { "Content-Type": "application/json" }
