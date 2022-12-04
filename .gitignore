@@ -4,3 +4,4 @@ instance/*
 react-app/node_modules/
 .venv
 .vscode/tasks.json
+.jython_cache
