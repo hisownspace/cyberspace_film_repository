@@ -65,6 +65,10 @@ color: rgba(102, 102, 210, 0.577);
   padding: 7px;
 }
 
+.addActorForm select {
+  width: 102.3%;
+}
+
 .checkbox-div {
   display: flex;
   justify-content: space-between;

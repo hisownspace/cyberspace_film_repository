@@ -7,7 +7,6 @@ class ActorForm(FlaskForm):
   # class Meta:
   #   csrf = False
 
-
   name = StringField("Name", [DataRequired(), Length(min=3, max=255)])
   date_of_birth = DateField("Date of Birth", [DataRequired()])
   place_of_birth = StringField("Place of Birth", [Optional(), Length(min=2, max=255)])

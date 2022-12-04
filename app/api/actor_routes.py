@@ -7,7 +7,7 @@ from app.forms.ActorForm import ActorForm
 
 actor_routes = Blueprint("api/actors", __name__, url_prefix="/api/actors")
 
-@actor_routes.route("", methods=["GET", "POST"])
+@actor_routes.route("/", methods=["GET", "POST"])
 def all_actors():
   """"""
   form = ActorForm()

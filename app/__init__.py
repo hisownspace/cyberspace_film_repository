@@ -6,6 +6,7 @@ from flask_wtf.csrf import generate_csrf
 from .config import Configuration as Config
 from .api.actor_routes import actor_routes
 from .api.film_routes import film_routes
+from .api.genre_routes import genre_routes
 from .models import db
 from .seeds import seed_commands
 
@@ -19,7 +20,7 @@ app.cli.add_command(seed_commands)
 
 app.register_blueprint(actor_routes, url_prefix="/api/actors")
 app.register_blueprint(film_routes) 
-
+app.register_blueprint(genre_routes)
 
 @app.route("/")
 def index():
