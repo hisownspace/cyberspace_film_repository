@@ -6,7 +6,7 @@ import AddActor from "./components/AddActor";
 import SingleActor from './components/SingleActor';
 import SingleFilm from './components/SingleFilm';
 import EditActor from './components/EditActor';
-import AddFilm from './components/AddFilm/AddFilm';
+import AddFilm from './components/AddFilm';
 
 function App() {
   return (

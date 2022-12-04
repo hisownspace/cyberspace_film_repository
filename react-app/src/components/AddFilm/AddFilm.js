@@ -8,8 +8,10 @@ function AddFilm() {
   const [photoUrl, setPhotoUrl] = useState("");
   const [genreId, setGenreId] = useState("");
   const [genres, setGenres] = useState([]);
+  const [actors, setActors] = useState([]);
+  const [castSearch, setCastSearch] = useState([]);
   const [cast, setCast] = useState([]);
-  const [selectedCast, setSelectedCast] = useState([]);
+  const [matches, setMatches] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -25,7 +27,7 @@ function AddFilm() {
       if (res.ok) {
         const data = await res.json();
         console.log(Object.values(data));
-        setCast(Object.values(data));
+        setActors(Object.values(data));
       } else {
         const data = await res.json();
         if (data.errors) {
@@ -54,6 +56,28 @@ function AddFilm() {
     })();
   }, []);
 
+  const clearSearch = () => {
+    setMatches([]);
+    setCastSearch("");
+  };
+
+  const searchActors = e => {
+    const param = e.target.value;
+    setCastSearch(param);
+    const nameMatches = [];
+    for (let i = 0; i < actors.length; i++) {
+      const name = actors[i].name.toLowerCase()
+      if (name.includes(param)) {
+        nameMatches.push(actors[i]);
+      };
+    };
+    if (param.length) {
+    setMatches(nameMatches);
+    } else {
+      setMatches([]);
+    }
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -68,7 +92,7 @@ function AddFilm() {
       cast
     }
 
-    const res = await fetch ("/api/films",
+    const res = await fetch ("/api/films/",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -177,7 +201,34 @@ function AddFilm() {
           return <option key={idx} value={genre[0]}>{genre[1]}</option>
         })}
         </select>
-        <div className="buttonHole">
+        <label
+          htmlFor="cast"
+          className="actor-label"
+        >
+          Cast
+        </label>
+        <input
+          className="actor-input search-box"
+          id="cast"
+          value={castSearch}
+          onChange={searchActors}
+          onBlur={clearSearch}
+        />
+        <ul className={matches.length ? "search-dropdown" : "search-dropdown-hidden"}>
+        {matches.map(actor => {
+          return (
+            <li 
+              onClick={() => console.log("clicked!")}
+              onMouseDown={e => e.preventDefault()}
+            >
+              {actor.name}
+            </li>
+          )
+        })
+        }
+        </ul>
+
+        <div className="buttonHole" id="search-allowance-buttons">
           <button className="cancel" type="button" onClick={handleCancel}>Cancel</button>
           <button>Submit</button>
         </div>
