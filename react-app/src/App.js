@@ -7,6 +7,7 @@ import SingleActor from './components/SingleActor';
 import SingleFilm from './components/SingleFilm';
 import EditActor from './components/EditActor';
 import AddFilm from './components/AddFilm';
+import EditFilm from './components/EditFilm';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/actors/:id"><SingleActor /></Route>
         <Route path="/actors"><Actors /></Route>
         <Route path="/films/add"><AddFilm /></Route>
+        <Route path="/films/:id/edit"><EditFilm /></Route>
         <Route path="/films/:id"><SingleFilm /></Route>
         <Route path="/films"><Films /></Route>
       </Switch>

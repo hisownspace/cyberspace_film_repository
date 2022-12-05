@@ -76,8 +76,9 @@ def edit_film(id):
 
     # dealing with db.relationship by appending to new list, and replacing old
     # cast relationship list with new list
+    castIds = json.loads(form.data["castIds"])
     cast = []
-    for actor_id in form.data["cast"]:
+    for actor_id in castIds:
       actor = Actor.query.get(actor_id)
       cast.append(actor)
     film.cast = cast
@@ -103,3 +104,18 @@ def delete_film(id):
     except Exception as e:
       return { "errors": str(e) }, 500
   return { "errors": "Actor not found!" }, 404
+
+# @film_routes("/<int:id>", methods=["PUT"])
+# def update_film(id):
+#   form = FilmForm()
+#   form["csrf_token"].data = request.cookies["csrf_token"]
+#   if form.validate_on_submit():
+#     film = Film.query.get(id)
+
+#     film.title = form.data["title"]
+#     film.year = form.data["year"]
+#     film.plot = form.data["plot"]
+#     film.photo_url = form.data["photo_url"]
+#     film.genre_id = form.data["genre_id"]
+    
+    
