@@ -6,7 +6,6 @@ function DeleteActorModal({ showModal, setShowModal, name, id }) {
 
   return (
     <>
-      {/* <button onClick={() => setShowModal(true)}>Log In</button> */}
       {showModal && (
         <Modal  onClose={() => setShowModal(false)}>
           <DeleteActor name={name} id={id} setShowModal={setShowModal} />

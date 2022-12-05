@@ -61,8 +61,15 @@
   grid-column: 2 / span 1;
   grid-row: 4 / span 1;
   padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column nowrap;
 }
 
 .cast-list {
   display: inline;
+}
+
+.delete-and-edit-film {
+  justify-self: end;
 }
