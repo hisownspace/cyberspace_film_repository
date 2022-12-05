@@ -2,8 +2,8 @@ html, body, #root {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
+  /* height: 100vh; */
+  /* width: 98.8vw; */
 }
 
 #root {

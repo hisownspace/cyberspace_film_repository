@@ -64,13 +64,12 @@ function AddFilm() {
   };
 
   const searchActors = e => {
-    console.log("HELLO!!!");
     const param = e.target.value;
     setCastSearch(param);
     const nameMatches = [];
     for (let i = 0; i < actors.length; i++) {
       const name = actors[i].name.toLowerCase()
-      if (name.includes(param) && cast.indexOf(actors[i]) === -1) {
+      if (name.includes(param.toLowerCase()) && cast.indexOf(actors[i]) === -1) {
         nameMatches.push(actors[i]);
       };
     };

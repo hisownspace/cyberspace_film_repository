@@ -8,10 +8,12 @@ import SingleFilm from './components/SingleFilm';
 import EditActor from './components/EditActor';
 import AddFilm from './components/AddFilm';
 import EditFilm from './components/EditFilm';
+import Navbar from './components/NavBar';
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route path="/actors/add"><AddActor /></Route>
         <Route path="/actors/:id/edit"><EditActor /></Route>

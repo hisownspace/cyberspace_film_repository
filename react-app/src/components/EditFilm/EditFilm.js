@@ -100,7 +100,7 @@ const EditFilm = () => {
       console.log(name)
       console.log(cast.indexOf(actors[i]));
 
-      if (name.includes(param) && !castNames.includes(actorNames[i])) {
+      if (name.includes(param.toLowerCase()) && !castNames.includes(actorNames[i])) {
         nameMatches.push(actors[i]);
       };
     };
@@ -171,9 +171,9 @@ const EditFilm = () => {
       castIds: JSON.stringify(castIds)
     }
 
-    const res = await fetch ("/api/films/",
+    const res = await fetch (`/api/films/${id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(filmForm)
       }
@@ -314,7 +314,7 @@ const EditFilm = () => {
         <div className="cast-list">
           {cast.map(actor => {
             return (
-              <span className="cast-member">
+              <span key={actor.name} className="cast-member">
                 {actor.name}&ensp;&nbsp;<b
                   className="remove-cast-member"
                   onMouseOver={e => toggleClass(e, "enter")}
