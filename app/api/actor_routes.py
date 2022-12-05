@@ -40,7 +40,7 @@ def all_actors():
     return actor.to_dict(), 201, { "Content-Type": "application/json" }
   
   elif form.errors:
-    return { "errors": form.errors }, 409, { "Content-Type": "application/json" }
+    return { "errors": form.errors }, 400, { "Content-Type": "application/json" }
   else:
     actors = Actor.query.all()
     return { actor.id: actor.to_dict() for actor in actors }, 200, { "Content-Type": "application/json" }
@@ -62,7 +62,7 @@ def delete_actor(id):
   if actor:
     db.session.delete(actor)
     db.session.commit()
-    return { "message": f"Successfully deleted {actor.name}" }, 204, { "Content-Type": "application/json" }
+    return { "message": f"Successfully deleted {actor.name}!" }, 204, { "Content-Type": "application/json" }
   return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
 
 @actor_routes.route("/<int:id>", methods=["PUT"])

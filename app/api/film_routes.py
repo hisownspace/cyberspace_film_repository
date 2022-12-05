@@ -54,9 +54,9 @@ def add_film():
     try:
       db.session.add(film)
       db.session.commit()
-      return film.to_dict()
+      return film.to_dict(), 201
     except Exception as e:
-      return { "errors": str(e) }
+      return { "errors": str(e) }, 500
   return { "errors": form.errors }, 400
     
 @film_routes.route("/<int:id>", methods=["PUT"])
@@ -85,8 +85,21 @@ def edit_film(id):
     try:
       db.session.add(film)
       db.session.commit()
+      return film.to_dict(), 200
     except Exception as e:
       return { "errors": str(e) }, 500
-    return film.to_dict(), 200
   
   return { "errors": form.errors }, 400
+
+
+@film_routes.route("/<int:id>", methods=["DELETE"])
+def delete_film(id):
+  film = Film.query.get(id)
+  if film:
+    try:
+      db.session.delete(film)
+      db.session.commit()
+      return { "message": f"Successfully deleted {film.title}!" }, 204
+    except Exception as e:
+      return { "errors": str(e) }, 500
+  return { "errors": "Actor not found!" }, 404
