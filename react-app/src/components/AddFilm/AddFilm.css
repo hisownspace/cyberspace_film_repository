@@ -29,13 +29,14 @@
 
 .search-dropdown li {
   margin-bottom: 7px;
+  cursor: pointer;
 }
 
-.search-dropdown li:hover {
+/* .search-dropdown li:hover {
   cursor: pointer;
-  /* color: grey; */
+  color: grey;
   font-weight: bold;
-}
+} */
 
 .search-dropdown-selected {
   font-weight: bold;

@@ -14,6 +14,7 @@ function AddFilm() {
   const [matches, setMatches] = useState([]);
   const [selectedSearch, setSelectedSearch] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [hover, setHover] = useState(false);
   const [errors, setErrors] = useState({});
 
   const history = useHistory();
@@ -88,6 +89,7 @@ function AddFilm() {
     setCast(tempCast);
     setCastSearch("");
     setMatches([]);
+    setHover(false);
   };
 
   const removeFromCast = actor => {
@@ -109,10 +111,21 @@ function AddFilm() {
   };
 
   const handleKeyPress = e => {
+    const idx = matches.indexOf(selectedSearch);
     if (matches.length === 0) {
       return;
     } else if (e.key === 'Enter') {
-
+      e.preventDefault();
+      addToCast(selectedSearch);
+    } else if (hover) {
+      return; 
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (idx >= 0 && idx < matches.length - 1) {
+        setSelectedSearch(matches[idx + 1]);
+      }
+    } else if (e.key === 'ArrowUp' && idx > 0) {
+      setSelectedSearch(matches[idx - 1]);
     }
   };
 
@@ -258,6 +271,7 @@ function AddFilm() {
           onBlur={clearSearch}
           onFocus={searchActors}
           // onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
         />
         {matches.length ? <ul onMouseDown={e => e.preventDefault()}className="search-dropdown">
         {matches.map(actor => {
@@ -265,7 +279,8 @@ function AddFilm() {
             <li
               className={selectedSearch === actor ? "search-dropdown-selected" : null}
               onClick={() => addToCast(actor)}
-              onMouseOver={() => setSelectedSearch(actor)}
+              onMouseOver={() => {setSelectedSearch(actor); setHover(true)}}
+              onMouseLeave={() => setHover(false)}
             >
               {actor.name}
             </li>
