@@ -12,6 +12,7 @@ function AddFilm() {
   const [castSearch, setCastSearch] = useState([]);
   const [cast, setCast] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [selectedSearch, setSelectedSearch] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -62,6 +63,7 @@ function AddFilm() {
   };
 
   const searchActors = e => {
+    console.log("HELLO!!!");
     const param = e.target.value;
     setCastSearch(param);
     const nameMatches = [];
@@ -73,6 +75,8 @@ function AddFilm() {
     };
     if (param.length) {
     setMatches(nameMatches);
+    // console.log(nameMatches);
+    setSelectedSearch(nameMatches[0]);
     } else {
       setMatches([]);
     }
@@ -96,6 +100,19 @@ function AddFilm() {
     e.target.parentElement.className = "cast-member-hover";
     } else {
     e.target.parentElement.className = "cast-member";
+    }
+  };
+
+  const changeSelected = actor => {
+    console.log(actor.name);
+    setSelectedSearch(actor);
+  };
+
+  const handleKeyPress = e => {
+    if (matches.length === 0) {
+      return;
+    } else if (e.key === 'Enter') {
+
     }
   };
 
@@ -240,12 +257,15 @@ function AddFilm() {
           onChange={searchActors}
           onBlur={clearSearch}
           onFocus={searchActors}
+          // onKeyPress={handleKeyPress}
         />
         {matches.length ? <ul onMouseDown={e => e.preventDefault()}className="search-dropdown">
         {matches.map(actor => {
           return (
-            <li 
+            <li
+              className={selectedSearch === actor ? "search-dropdown-selected" : null}
               onClick={() => addToCast(actor)}
+              onMouseOver={() => setSelectedSearch(actor)}
             >
               {actor.name}
             </li>

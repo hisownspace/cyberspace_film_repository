@@ -33,9 +33,13 @@
 
 .search-dropdown li:hover {
   cursor: pointer;
-  color: grey;
+  /* color: grey; */
+  font-weight: bold;
 }
 
+.search-dropdown-selected {
+  font-weight: bold;
+}
 
 #search-allowance-buttons {
   margin-top: max(75px, 5%);
