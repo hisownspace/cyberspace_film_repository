@@ -14,9 +14,9 @@ def all_films():
 @film_routes.route("/<int:id>")
 def one_film(id):
   film = Film.query.get(id)
-  print(film.to_dict())
   try:
     if not film:
+      print(film.to_dict());
       return { "errors": "Film not found"}, 404
     return film.to_dict(), 200
   except Exception as e:

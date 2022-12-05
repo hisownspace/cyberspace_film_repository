@@ -28,6 +28,7 @@ function Navbar () {
   }, []);
 
   const goToPage = result => {
+    setMatches([]);
     if (result.title) {
       history.push(`/films/${result.id}`);
     } else {
@@ -47,17 +48,26 @@ function Navbar () {
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       if (idx >= 0 && idx < matches.length - 1) {
-        setSelectedSearch(matches[idx + 1]);
+        if (matches[idx + 1].isCategory) {
+          if (matches[idx + 2]) setSelectedSearch(matches[idx + 2]);
+        } else {
+          setSelectedSearch(matches[idx + 1]);
+        }
       }
-    } else if (e.key === 'ArrowUp' && idx > 0) {
-      setSelectedSearch(matches[idx - 1]);
+    } else if (e.key === 'ArrowUp' && idx > 1) {
+      if (matches[idx - 1].isCategory) {
+        if (matches[idx - 2] && !matches[idx - 2].isCategory) setSelectedSearch(matches[idx - 2]);
+      } else {
+        setSelectedSearch(matches[idx - 1]);
+      }
     }
   };
   
   const handleSearch = e => {
     const params = e.target.value
     setSearchParams(params);
-    const results = [];
+    const actorCat = { isCategory: true, label: "Actors" };
+    const results = [actorCat];
     console.log(searchParams);
     console.log(params);
     for (let i = 0; i < actors.length; i++) {
@@ -65,13 +75,19 @@ function Navbar () {
         results.push(actors[i]);
       }
     };
+    const movieCat = { isCategory: true, label: "Movies" };
+    results.push(movieCat);
     for (let i = 0; i < films.length; i++) {
       if (films[i].title.toLowerCase().includes(params.toLowerCase())) {
         results.push(films[i]);
       }
     }
     setMatches(results);
-    setSelectedSearch(results[0]);
+    if (!results[1].isCategory) {
+      setSelectedSearch(results[1]);
+    } else {
+      setSelectedSearch(results[2]);
+    }
   };
 
   return (
@@ -93,13 +109,13 @@ function Navbar () {
             {matches.length ? <ul onMouseDown={e => e.preventDefault()} className="navbar-search-dropdown">
             {matches.map(result => {
               if (result.isCategory) {
-                return <li>
+                return <li className="search-categories">
                   {result.label}
                 </li>
               }
               return (
                 <li
-                  className={selectedSearch === result ? "search-dropdown-selected" : null}
+                  className={selectedSearch === result ? "search-dropdown-selected search-li" : "search-li"}
                   onClick={() => goToPage(result)}
                   onMouseOver={() => {setSelectedSearch(result); setHover(true)}}
                   onMouseLeave={() => setHover(false)}
