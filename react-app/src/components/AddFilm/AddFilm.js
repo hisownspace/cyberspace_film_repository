@@ -105,11 +105,6 @@ function AddFilm() {
     }
   };
 
-  const changeSelected = actor => {
-    console.log(actor.name);
-    setSelectedSearch(actor);
-  };
-
   const handleKeyPress = e => {
     const idx = matches.indexOf(selectedSearch);
     if (matches.length === 0) {

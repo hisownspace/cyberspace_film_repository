@@ -13,6 +13,8 @@ const EditFilm = () => {
   const [castSearch, setCastSearch] = useState([]);
   const [cast, setCast] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [selectedSearch, setSelectedSearch] = useState(null);
+  const [hover, setHover] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -21,7 +23,7 @@ const EditFilm = () => {
   const history = useHistory();
 
   const handleCancel = e => {
-    history.push("/");
+    history.push(`/films/${id}`);
   };
 
   useEffect(() => {
@@ -83,17 +85,26 @@ const EditFilm = () => {
   };
 
   const searchActors = e => {
+    const castNames = [];
+    for (let i = 0; i < cast.length; i++) {
+      castNames.push(cast[i].name);
+    };
+    const actorNames = [];
+    for (let i = 0; i < actors.length; i++) {
+      actorNames.push(actors[i].name);
+    };
     const param = e.target.value;
     setCastSearch(param);
     const nameMatches = [];
     for (let i = 0; i < actors.length; i++) {
       const name = actors[i].name.toLowerCase()
-      if (name.includes(param) && cast.indexOf(actors[i]) === -1) {
+      if (name.includes(param) && (cast.indexOf(actors[i]) === -1 ^ castNames[i] === actorNames[i])) {
         nameMatches.push(actors[i]);
       };
     };
     if (param.length) {
     setMatches(nameMatches);
+    setSelectedSearch(nameMatches[0]);
     } else {
       setMatches([]);
     }
@@ -105,6 +116,7 @@ const EditFilm = () => {
     setCast(tempCast);
     setCastSearch("");
     setMatches([]);
+    setHover(false);
   };
 
   const removeFromCast = actor => {
@@ -117,6 +129,25 @@ const EditFilm = () => {
     e.target.parentElement.className = "cast-member-hover";
     } else {
     e.target.parentElement.className = "cast-member";
+    }
+  };
+
+  const handleKeyPress = e => {
+    const idx = matches.indexOf(selectedSearch);
+    if (matches.length === 0) {
+      return;
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      addToCast(selectedSearch);
+    } else if (hover) {
+      return; 
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (idx >= 0 && idx < matches.length - 1) {
+        setSelectedSearch(matches[idx + 1]);
+      }
+    } else if (e.key === 'ArrowUp' && idx > 0) {
+      setSelectedSearch(matches[idx - 1]);
     }
   };
 
@@ -261,12 +292,16 @@ const EditFilm = () => {
           onChange={searchActors}
           onBlur={clearSearch}
           onFocus={searchActors}
+          onKeyDown={handleKeyPress}
         />
         {matches.length ? <ul onMouseDown={e => e.preventDefault()}className="search-dropdown">
         {matches.map(actor => {
           return (
-            <li 
+            <li
+              className={selectedSearch === actor ? "search-dropdown-selected" : null}
               onClick={() => addToCast(actor)}
+              onMouseOver={() => {setSelectedSearch(actor); setHover(true)}}
+              onMouseLeave={() => setHover(false)}
             >
               {actor.name}
             </li>
