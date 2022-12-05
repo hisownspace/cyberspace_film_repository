@@ -16,12 +16,12 @@ function SingleFilm () {
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/films/${filmId}`);
+        const data = await res.json();
       if (res.ok) {
-        const film = await res.json();
-        setFilm(film);
+        setFilm(data);
       } else {
-        console.log(res.status);
-        setErrors(res.status);
+        console.log(data.errors);
+        setErrors(data.errors);
       }
     })().then(setLoaded(true));
     return () => setLoaded(false);

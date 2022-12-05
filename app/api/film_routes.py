@@ -13,7 +13,9 @@ def all_films():
 
 @film_routes.route("/<int:id>")
 def one_film(id):
+  print("hello")
   film = Film.query.get(id)
+  print(film.title)
   try:
     if not film:
       print(film.to_dict());
