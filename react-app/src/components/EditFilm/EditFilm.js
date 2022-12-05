@@ -36,7 +36,6 @@ const EditFilm = () => {
         setPlot(data.plot);
         setPhotoUrl(data["photo_url"]);
         setGenreId(data.genre.id);
-        console.log("GENREID!!!!!!!!!", genreId);
         setCast(data.cast);
       } else {
         console.log(data.errors);
@@ -98,7 +97,10 @@ const EditFilm = () => {
     const nameMatches = [];
     for (let i = 0; i < actors.length; i++) {
       const name = actors[i].name.toLowerCase()
-      if (name.includes(param) && (cast.indexOf(actors[i]) === -1 ^ castNames[i] === actorNames[i])) {
+      console.log(name)
+      console.log(cast.indexOf(actors[i]));
+
+      if (name.includes(param) && !castNames.includes(actorNames[i])) {
         nameMatches.push(actors[i]);
       };
     };
