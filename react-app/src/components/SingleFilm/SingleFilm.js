@@ -18,13 +18,16 @@ function SingleFilm () {
     (async () => {
       const res = await fetch(`/api/films/${filmId}`);
         const data = await res.json();
-        console.log(data);
-        console.log(data.image_url);
       if (res.ok) {
-        setFilm(data);
+        const film = data;
+        console.log("Film: ", film);
+        console.log("photo_url: ", data.photo_url);
+        setFilm(film);
         document.title = `${data.title} Page`;
       } else {
-        console.log(data.errors);
+        console.log("Status Code: ", data.status);
+        console.log("Errors: ", data.errors);
+        console.log("Data: ", data);
         setErrors(data.errors);
       }
     })().then(setLoaded(true));
@@ -43,7 +46,7 @@ function SingleFilm () {
               {film.title}
             </div>
             <div className="single-film-photo-container">
-              <img alt={film.title} className="single-film-photo" src={film.image_url} />
+              <img alt={film.title} className="single-film-photo" src={film.photo_url} />
             </div>
             <div className="single-film-genre">
               <a href={`/genres/${film.genre?.id}`}className="single-film-genre-tab">

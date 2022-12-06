@@ -35,7 +35,7 @@ const EditFilm = () => {
         setTitle(data.title);
         setYear(data.year);
         setPlot(data.plot);
-        setPhotoUrl(data["image_url"]);
+        setPhotoUrl(data["photo_url"]);
         setGenreId(data.genre.id);
         setCast(data.cast);
       } else {
@@ -167,7 +167,7 @@ const EditFilm = () => {
       title,
       year,
       plot,
-      "image_url": photoUrl,
+      "photo_url": photoUrl,
       "genre_id": genreId,
       castIds: JSON.stringify(castIds)
     }
@@ -183,10 +183,12 @@ const EditFilm = () => {
     const data = await res.json();
     if (res.ok) {
       const film = data;
+      console.log("Film: ", film);
       history.push(`/films/${film.id}`)
     } else if (data.errors) {
-      console.log(res.status);
-      console.log(data.errors);
+      console.log("Errors: ", data.errors);
+      console.log("Status Code: ", res.status);
+      console.log("Data: ", data);
       setErrors(data.errors);
     } else {
       setErrors(["Unknown Error!"])
@@ -244,7 +246,7 @@ const EditFilm = () => {
           onChange={e => setPlot(e.target.value)}
         />
         <p className="errors">
-          {errors.image_url && submitted ? "Photo URL: " + errors.image_url : null}
+          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
         </p>
         <label
           htmlFor="photo"
