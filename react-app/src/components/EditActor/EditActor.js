@@ -18,10 +18,11 @@ function EditActor() {
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/actors/${id}`);
+
       if (res.ok) {
 
         const data = await res.json();
-        const actor = data[id];
+        const actor = data;
         setName(actor.name);
         let dob = new Date(actor.date_of_birth);
         // const year = dob.toLocaleString("default", { year: "numeric" });
