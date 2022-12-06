@@ -136,7 +136,7 @@ function AddFilm() {
       title,
       year,
       plot,
-      "photo_url": photoUrl,
+      "image_url": photoUrl,
       "genre_id": genreId,
       castIds: JSON.stringify(castIds)
     }
@@ -217,7 +217,7 @@ function AddFilm() {
           onChange={e => setPlot(e.target.value)}
         />
         <p className="errors">
-          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
+          {errors.image_url && submitted ? "Photo URL: " + errors.image_url : null}
         </p>
         <label
           htmlFor="photo"

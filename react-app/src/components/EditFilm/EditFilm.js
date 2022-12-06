@@ -34,7 +34,7 @@ const EditFilm = () => {
         setTitle(data.title);
         setYear(data.year);
         setPlot(data.plot);
-        setPhotoUrl(data["photo_url"]);
+        setPhotoUrl(data["image_url"]);
         setGenreId(data.genre.id);
         setCast(data.cast);
       } else {
@@ -166,7 +166,7 @@ const EditFilm = () => {
       title,
       year,
       plot,
-      "photo_url": photoUrl,
+      "image_url": photoUrl,
       "genre_id": genreId,
       castIds: JSON.stringify(castIds)
     }
@@ -247,7 +247,7 @@ const EditFilm = () => {
           onChange={e => setPlot(e.target.value)}
         />
         <p className="errors">
-          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
+          {errors.image_url && submitted ? "Photo URL: " + errors.image_url : null}
         </p>
         <label
           htmlFor="photo"

@@ -40,7 +40,7 @@ function SingleFilm () {
               {film.title}
             </div>
             <div className="single-film-photo-container">
-              <img alt={film.title} className="single-film-photo" src={film.photo_url} />
+              <img alt={film.title} className="single-film-photo" src={film.image_url} />
             </div>
             <div className="single-film-genre">
               <a href={`/genres/${film.genre?.id}`}className="single-film-genre-tab">
