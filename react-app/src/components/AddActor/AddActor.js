@@ -63,7 +63,7 @@ const handleCheckedState = (e, idx) => {
       filmography
     };
 
-    const res = await fetch("/api/actors",
+    const res = await fetch("/api/actors/",
       {
         method: "POST",
         headers: {

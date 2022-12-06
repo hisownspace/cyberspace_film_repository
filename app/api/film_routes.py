@@ -13,16 +13,10 @@ def all_films():
 
 @film_routes.route("/<int:id>")
 def one_film(id):
-  print("hello")
   film = Film.query.get(id)
-  print(film.title)
-  try:
-    if not film:
-      print(film.to_dict());
-      return { "errors": "Film not found"}, 404
-    return film.to_dict(), 200
-  except Exception as e:
-    return { "errors": str(e) }, 500
+  if not film:
+    return { "errors": "Film not found" }, 404
+  return film.to_dict(), 200
 
 @film_routes.route("/count")
 def film_count():
@@ -46,11 +40,8 @@ def add_film():
     
     # dealing with db.relationship by appending to cast list
     cast = json.loads(form.data["castIds"])
-    print(cast)
     for id in cast:
-      print(id)
       actor = Actor.query.get(id)
-      print(actor.name)
       film.cast.append(actor)
     
     try:

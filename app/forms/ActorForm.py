@@ -15,11 +15,8 @@ class ActorForm(FlaskForm):
   filmography = SelectMultipleField("Films", choices=[], validate_choice=False, coerce=int)
   
   def validate_photo_url(form, field):
-    # print("hello!~")
     try:
       content_type = urlopen(field.data).info()["content-type"]
-      # print(content_type)
-      # print(urlopen(field.data).info())
     except:
       raise ValidationError("Must be a valid URL.")
     if "image" not in content_type:

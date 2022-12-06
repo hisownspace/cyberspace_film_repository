@@ -19,7 +19,7 @@ const SingleActor = () => {
       const res = await fetch(`/api/actors/${id}`);
       if (res.ok) {
         const actor = await res.json();
-        setActor(actor[id]);
+        setActor(actor);
       } else {
         setErrors(res.status);
       };

@@ -19,10 +19,16 @@ def all_actors():
     # films that correspond with the ids in the list received
     # in the form and appending each Film instance to filmography
     # relationship on the Actor instance
-    filmography = form.data["filmography"]
-    for idx, id in enumerate(filmography):
-      film = Film.query.get(id)
-      filmography[idx] = film
+    film_ids = form.data["filmography"]
+    filmography = [Film.query.get(id) for id in film_ids]
+    
+    # for id in filmography:
+    #   film = Film.query.get(id)
+    #   filmography.append(film)
+    
+    # for idx, id in enumerate(filmography):
+    #   film = Film.query.get(id)
+    #   filmography[idx] = film
 
     params = {
       "name": form.data["name"],
@@ -49,7 +55,7 @@ def all_actors():
 def one_actor(id):
   actor = Actor.query.get(id)
   if actor:
-    return { actor.id: actor.to_dict() }, 200, { "Content-Type": "application/json" }
+    return (actor.to_dict(), 200, { "Content-Type": "application/json" })
   return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
   
 @actor_routes.route("/count")
@@ -69,7 +75,6 @@ def delete_actor(id):
 def update_actor(id):
   form = ActorForm()
   form["csrf_token"].data = request.cookies["csrf_token"]
-  # print(form.data)
   if form.validate_on_submit():
     actor = Actor.query.get(id)
 
@@ -95,5 +100,4 @@ def update_actor(id):
       return { "errors": str(e) }, 500
 
     return actor.to_dict(), 200, { "Content-Type": "application/json" }
-  # print(form.errors)
   return { "errors": form.errors }, 400, { "Content-Type": "application/json" }

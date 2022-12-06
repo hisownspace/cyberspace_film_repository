@@ -33,7 +33,6 @@ def help():
   """This route provides information about all the backend routes!"""
   func_list = {}
   for rule in app.url_map.iter_rules():
-    print(rule)
     if rule.endpoint != 'static':
       for method in rule.methods:
         if method != "OPTIONS" and method != "HEAD":

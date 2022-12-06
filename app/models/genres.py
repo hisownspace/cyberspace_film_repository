@@ -16,7 +16,6 @@ class Genre(db.Model):
   films = db.relationship("Film", back_populates="genre")
 
   def to_dict(self, from_film=False):
-    print(self.films)
     return {
       "id": self.id,
       "name": self.name,
