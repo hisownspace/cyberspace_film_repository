@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom";
-
+import { useEffect } from "react";
 
 function DeleteActor({ name, id, setShowModal }) {
   const history = useHistory();
-  
+
   const handleDelete = async () => {
     const res = await fetch(`/api/actors/${id}`, {
       method: "DELETE",

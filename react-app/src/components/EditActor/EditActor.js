@@ -23,6 +23,7 @@ function EditActor() {
 
         const data = await res.json();
         const actor = data;
+        document.title = `Edit ${actor.name}`;
         setName(actor.name);
         let dob = new Date(actor.date_of_birth);
         // const year = dob.toLocaleString("default", { year: "numeric" });

@@ -20,6 +20,7 @@ function SingleFilm () {
         const data = await res.json();
       if (res.ok) {
         setFilm(data);
+        document.title = `${data.title} Page`;
       } else {
         console.log(data.errors);
         setErrors(data.errors);
@@ -79,7 +80,7 @@ function SingleFilm () {
               <h2>Top Cast:</h2>
               <div className="single-film-cast-cards">
                 {film?.cast?.map(actor => {
-                  return <ActorCard actor={actor} />
+                  return <ActorCard key={actor.name} actor={actor} />
                 })}
               </div>
           </div>
