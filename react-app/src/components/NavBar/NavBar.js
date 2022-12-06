@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 function Navbar () {
@@ -9,6 +9,7 @@ function Navbar () {
   const [selectedSearch, setSelectedSearch] = useState(null);
   const [hover, setHover] = useState(false);
 
+  const searchInput = useRef(null);
   const history = useHistory();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function Navbar () {
 
   const goToPage = result => {
     setMatches([]);
+    searchInput.current.blur();
     if (result.title) {
       history.push(`/films/${result.id}`);
     } else {
@@ -99,6 +101,7 @@ function Navbar () {
         <form className="nav-search-form">
           <div>
             <input
+              ref={searchInput}
               className="nav-search-input"
               value={searchParams}
               onChange={handleSearch}
