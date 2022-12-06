@@ -16,7 +16,6 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route path="/"><Splash /></Route>
         <Route path="/actors/add"><AddActor /></Route>
         <Route path="/actors/:id/edit"><EditActor /></Route>
         <Route path="/actors/:id"><SingleActor /></Route>
@@ -25,6 +24,7 @@ function App() {
         <Route path="/films/:id/edit"><EditFilm /></Route>
         <Route path="/films/:id"><SingleFilm /></Route>
         <Route path="/films"><Films /></Route>
+        <Route path="/"><Splash /></Route>
       </Switch>
 
     </BrowserRouter>
