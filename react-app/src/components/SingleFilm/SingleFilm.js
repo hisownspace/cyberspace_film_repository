@@ -75,7 +75,6 @@ function SingleFilm () {
  
           </div>
           <div className="single-film-cast">
-              Hello!
           </div>
           <DeleteFilmModal showModal={showModal} setShowModal={setShowModal} title={film?.title} id={film?.id} />
        </div>
