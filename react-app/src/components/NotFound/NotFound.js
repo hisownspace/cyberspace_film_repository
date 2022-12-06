@@ -1,7 +1,12 @@
-
+ import {useEffect } from 'react';
 
 
 function NotFound () {
+
+  useEffect(() => {
+    document.title = "404: Not Found";
+  }, []);
+
   return (
   <div className="not-found-main">
     <div className="not-found-box">

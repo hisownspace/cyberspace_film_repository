@@ -25,6 +25,7 @@ const handleCheckedState = (e, idx) => {
   }
 
   useEffect(() => {
+    document.title = "Add Actor Page";
     (async () => {
       const res = await fetch("/api/films/");
       if (res.ok) {

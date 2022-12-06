@@ -31,6 +31,7 @@ const EditFilm = () => {
       const res = await fetch(`/api/films/${id}`);
       const data = await res.json();
       if (res.ok) {
+        document.title = `Edit ${data.title}`;
         setTitle(data.title);
         setYear(data.year);
         setPlot(data.plot);

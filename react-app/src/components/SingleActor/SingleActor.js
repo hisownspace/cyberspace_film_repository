@@ -19,6 +19,7 @@ const SingleActor = () => {
       const res = await fetch(`/api/actors/${id}`);
       if (res.ok) {
         const actor = await res.json();
+        document.title = `${actor.name} Page`;
         setActor(actor);
       } else {
         setErrors(res.status);

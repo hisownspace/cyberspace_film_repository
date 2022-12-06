@@ -24,6 +24,7 @@ function AddFilm() {
   };
 
   useEffect(() => {
+    document.title = "Add Film";
     (async () => {
       const res = await fetch("/api/actors/");
       if (res.ok) {
