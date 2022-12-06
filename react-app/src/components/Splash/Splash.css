@@ -1,0 +1,18 @@
+.splash-page {
+  margin-top: 0;
+  height: calc(100vh - 56px);
+  width: 100vw;
+  background-image: url(https://t3.ftcdn.net/jpg/02/97/03/92/360_F_297039257_rK7c5hnnF4EURybO22HiXKdZ24IavFdc.jpg);
+  background-size: cover;
+  display: flex;
+}
+
+.splash-page h1 {
+  margin: auto;
+  color: yellow;
+  display: inline;
+  text-align: center;
+  width: 8em;
+  font-size: 50px;
+  text-shadow: 5px 5px 5px black;
+}
