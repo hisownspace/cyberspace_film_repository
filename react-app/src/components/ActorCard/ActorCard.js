@@ -1,20 +1,22 @@
-
+import { useHistory } from "react-router-dom";
 
 function ActorCard ({ actor }) {
-
-
-
+const history = useHistory();
 
   return(
-    <>
-      <h1>ACTOR CARD!!!!!</h1>
-      <p>{actor.name}</p>
-      <p>{actor.date_of_birth}</p>
-      <p>{actor.place_of_birth}</p>
-      {actor.filmography.map((elem, idx) => {
-        return (<a href={`/films/${elem.id}`} key={idx}>{elem.title}</a>)
-      })}
-    </>
+    <div className="actor-card" onClick={() => history.push(`/actors/${actor.id}`)}>
+      <div className="actor-card-image-container">
+        <img
+          className="actor-card-photo"
+          src={actor.photo_url}
+          alt={actor.name}
+        />
+      </div>
+      <p
+        className="actor-card-name">
+        {actor.name}
+        </p>
+    </div>
 
   )
 };

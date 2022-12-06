@@ -73,3 +73,17 @@
 .delete-and-edit-film {
   justify-self: end;
 }
+
+.single-film-cast-cards {
+  /* margin-top: 100px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.film-extra-detail {
+  /* margin: auto; */
+  width: 50%;
+  margin-top: 50px;
+  margin-left: 50px;
+}

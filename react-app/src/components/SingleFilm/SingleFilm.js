@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import NotFound from "../NotFound";
 import DeleteFilmModal from '../DeleteFilmModal';
+import ActorCard from "../ActorCard";
 
 function SingleFilm () {
   const filmId = useParams().id
@@ -74,7 +75,13 @@ function SingleFilm () {
           : null}
  
           </div>
-          <div className="single-film-cast">
+          <div className="film-extra-detail">
+              <h2>Top Cast:</h2>
+              <div className="single-film-cast-cards">
+                {film?.cast?.map(actor => {
+                  return <ActorCard actor={actor} />
+                })}
+              </div>
           </div>
           <DeleteFilmModal showModal={showModal} setShowModal={setShowModal} title={film?.title} id={film?.id} />
        </div>
