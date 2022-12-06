@@ -14,6 +14,8 @@ def all_films():
 @film_routes.route("/<int:id>")
 def one_film(id):
   film = Film.query.get(id)
+  # print(film)
+  # print(film.image_url)
   if not film:
     return { "errors": "Film not found" }, 404
   return film.to_dict(), 200
@@ -33,7 +35,7 @@ def add_film():
       "title": form.data["title"],
       "year": form.data["year"],
       "plot": form.data["plot"],
-      "photo_url": form.data["photo_url"],
+      "image_url": form.data["image_url"],
       "genre_id": form.data["genre_id"]
     }
     film = Film(**params)
@@ -64,7 +66,7 @@ def edit_film(id):
     film.title = form.data["title"]
     film.year = form.data["year"]
     film.plot = form.data["plot"]
-    film.photo_url = form.data["photo_url"]
+    film.image_url = form.data["image_url"]
     film.genre_id = form.data["genre_id"]
 
     # dealing with db.relationship by appending to new list, and replacing old

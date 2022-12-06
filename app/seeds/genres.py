@@ -8,7 +8,7 @@ def seed_genres():
   "sci_fi": Genre(name = "Sci-fi"),
   "comedy": Genre(name = "Comedy"),
   "drama": Genre(name = "Drama"),
-  "western": Genre(name="Western")
+  "western": Genre(name = "Western")
   }
   
   [db.session.add(genre) for genre in genres.values()]

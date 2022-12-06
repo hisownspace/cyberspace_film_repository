@@ -182,16 +182,12 @@ const EditFilm = () => {
     setSubmitted(true);
     const data = await res.json();
     if (res.ok) {
-      // const film = await res.json();
       const film = data;
       history.push(`/films/${film.id}`)
     } else if (data.errors) {
       console.log(res.status);
-      // const data = await res.json();
-      // if (data.errors) {
-      setErrors(data.errors);
       console.log(data.errors);
-      // }
+      setErrors(data.errors);
     } else {
       setErrors(["Unknown Error!"])
     }
