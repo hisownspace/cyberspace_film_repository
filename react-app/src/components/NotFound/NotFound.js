@@ -1,5 +1,5 @@
- import {useEffect } from 'react';
-
+ import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function NotFound () {
 
@@ -14,7 +14,7 @@ function NotFound () {
         404: Not Found
       </p>
       <p>
-        <a href="/">Return Home</a>
+        <Link to="/">Return Home</Link>
       </p>
     </div>
   </div>

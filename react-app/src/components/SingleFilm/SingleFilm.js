@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import NotFound from "../NotFound";
 import DeleteFilmModal from '../DeleteFilmModal';
@@ -44,9 +44,9 @@ function SingleFilm () {
               <img alt={film.title} className="single-film-photo" src={film.photo_url} />
             </div>
             <div className="single-film-genre">
-              <a href={`/genres/${film.genre?.id}`}className="single-film-genre-tab">
+              <Link to={`/genres/${film.genre?.id}`}className="single-film-genre-tab">
                 {film.genre?.name}
-              </a>
+              </Link>
             </div>
             <div className="single-film-plot">
               {film.plot}
@@ -54,7 +54,7 @@ function SingleFilm () {
             <div className="single-film-cast">
               <div>
               Stars&emsp;{film?.cast?.map((star, idx) => {
-                let castList = <a key={`cast-list-${idx}`} href={`/actors/${star.id}`}>{star.name}</a>
+                let castList = <Link key={`cast-list-${idx}`} Link={`/actors/${star.id}`}>{star.name}</Link>
                 if (idx !== film.cast.length - 1) {
                   return (
                   <div className="cast-list" key={`actor-list-${idx}`}>
@@ -66,7 +66,7 @@ function SingleFilm () {
               })}
               </div>
               <div className="delete-and-edit-film">
-                <a className="edit-actor-link" href={`/films/${film.id}/edit`}>Edit Film</a>
+                <Link className="edit-actor-link" to={`/films/${film.id}/edit`}>Edit Film</Link>
                     &emsp;
                     <div className="delete-actor-link" onClick={() => setShowModal(true)}>Delete Film</div>
               </div>
