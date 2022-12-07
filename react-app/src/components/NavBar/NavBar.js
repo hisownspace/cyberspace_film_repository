@@ -134,7 +134,9 @@ function Navbar () {
         </form>
       </div>
       <div className="navbar-profile">
+            <Link className="navbar-links" to="/films/add">Add Film</Link>
 
+            <Link className="navbar-links" to="/actors/add">Add Actor</Link>
       </div>
     </div>
   )
