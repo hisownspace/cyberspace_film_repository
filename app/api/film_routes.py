@@ -35,7 +35,7 @@ def add_film():
       "title": form.data["title"],
       "year": form.data["year"],
       "plot": form.data["plot"],
-      "image_url": form.data["image_url"],
+      "photo_url": form.data["photo_url"],
       "genre_id": form.data["genre_id"]
     }
     film = Film(**params)
@@ -66,7 +66,7 @@ def edit_film(id):
     film.title = form.data["title"]
     film.year = form.data["year"]
     film.plot = form.data["plot"]
-    film.image_url = form.data["image_url"]
+    film.photo_url = form.data["photo_url"]
     film.genre_id = form.data["genre_id"]
 
     # dealing with db.relationship by appending to new list, and replacing old

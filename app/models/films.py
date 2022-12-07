@@ -8,7 +8,7 @@ class Film(db.Model):
   @param title: the title of the movie\n
   @param year: the year in which the movie is made\n
   @param plot: a description of the plot of the film - not required\n
-  @param image_url: a link to a photo of the movie poster\n
+  @param photo_url: a link to a photo of the movie poster\n
   @param cast: a list of the actors in the movie (m2m through film_cast)\n
   """
   
@@ -18,7 +18,7 @@ class Film(db.Model):
   title = db.Column(db.String(255), nullable=False)
   year = db.Column(db.Integer, nullable=False)
   plot = db.Column(db.String(2000), nullable=True)
-  image_url = db.Column(db.String(1000), nullable=False)
+  photo_url = db.Column(db.String(1000), nullable=False)
   genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=False)  
   
   
@@ -33,7 +33,7 @@ class Film(db.Model):
       title,
       year,
       plot,
-      image_url,
+      photo_url,
       cast
     }
     """
@@ -42,7 +42,7 @@ class Film(db.Model):
       "title": self.title,
       "year": self.year,
       "plot": self.plot,
-      "image_url": self.image_url,
+      "photo_url": self.photo_url,
       "cast": [actor.id for actor in self.cast] if from_actor else [actor.to_dict(True) for actor in self.cast],
       "genre": self.genre.id if from_genre else self.genre.to_dict(from_film=True)
     }

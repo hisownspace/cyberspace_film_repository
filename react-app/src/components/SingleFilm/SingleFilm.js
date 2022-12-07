@@ -17,7 +17,7 @@ function SingleFilm () {
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/films/${filmId}`);
-        const data = await res.json();
+      const data = await res.json();
       if (res.ok) {
         const film = data;
         console.log("Film: ", film);
