@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import NotFound from '../NotFound';
 import DeleteActorModal from '../DeleteActorModal';
@@ -50,7 +50,7 @@ const SingleActor = () => {
                 <div>
                 <p><b>Born:</b> {actor["date_of_birth"]} in {actor["place_of_birth"]}</p>
                 <div className='single-actor-options'>
-                  <a className="edit-actor-link" href={`/actors/${actor.id}/edit`}>Edit Actor</a>
+                  <Link className="edit-actor-link" to={`/actors/${actor.id}/edit`}>Edit Actor</Link>
                   &emsp;
                   <div className="delete-actor-link" onClick={() => setShowModal(true)}>Delete Actor</div>
                 </div>
@@ -75,7 +75,7 @@ const SingleActor = () => {
                 return (
                 <tr className='filmography-row' key={`filmography-row-${idx}`}>
                   <td className='filmography-title'>
-                    <a href={`/films/${film.id}`}>{film.title}</a>
+                    <Link to={`/films/${film.id}`}>{film.title}</Link>
                   </td>
                   <td className='filmography-year'>
                     {film.year}
