@@ -70,8 +70,6 @@ function Navbar () {
     setSearchParams(params);
     const actorCat = { isCategory: true, label: "Actors" };
     const results = [actorCat];
-    console.log(searchParams);
-    console.log(params);
     for (let i = 0; i < actors.length; i++) {
       if (actors[i].name.toLowerCase().includes(params.toLowerCase())) {
         results.push(actors[i]);
@@ -112,12 +110,13 @@ function Navbar () {
             {matches.length ? <ul onMouseDown={e => e.preventDefault()} className="navbar-search-dropdown">
             {matches.map(result => {
               if (result.isCategory) {
-                return <li className="search-categories">
+                return <li key={result.label} className="search-categories">
                   {result.label}
                 </li>
               }
               return (
                 <li
+                  key={result.name ? result.name : result.title}
                   className={selectedSearch === result ? "search-dropdown-selected search-li" : "search-li"}
                   onClick={() => goToPage(result)}
                   onMouseOver={() => {setSelectedSearch(result); setHover(true)}}
