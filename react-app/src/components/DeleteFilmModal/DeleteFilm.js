@@ -23,8 +23,8 @@ function DeleteFilm({ title, id, setShowModal }) {
         </p>
       </div>
       <div className="modal-buttons">
-        <button onClick={handleDelete}>Yes</button>
-        <button onClick={() => setShowModal(false)}>No</button>
+        <button className="delete-confirm" onClick={handleDelete}>Yes</button>
+        <button className="delete-confirm" onClick={() => setShowModal(false)}>No</button>
       </div>
     </div>
   )
