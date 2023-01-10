@@ -54,7 +54,7 @@ function SingleFilm () {
             <div className="single-film-cast">
               <div>
               Stars&emsp;{film?.cast?.map((star, idx) => {
-                let castList = <Link key={`cast-list-${idx}`} Link={`/actors/${star.id}`}>{star.name}</Link>
+                let castList = <Link key={`cast-list-${idx}`} to={`/actors/${star.id}`}>{star.name}</Link>
                 if (idx !== film.cast.length - 1) {
                   return (
                   <div className="cast-list" key={`actor-list-${idx}`}>
