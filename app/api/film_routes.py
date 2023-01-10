@@ -58,6 +58,9 @@ def edit_film(id):
 
   form["csrf_token"].data = request.cookies["csrf_token"]
 
+
+  print(type(request.data))
+  print(form.data)
   if form.validate_on_submit():
     film = Film.query.get(id)
 
@@ -77,7 +80,8 @@ def edit_film(id):
     film.cast = cast
     
     try:
-      db.session.add(film)
+      # db.session.add(film)
+      print("ADD IS NOT NECESSARY!")
       db.session.commit()
       return film.to_dict(), 200
     except Exception as e:

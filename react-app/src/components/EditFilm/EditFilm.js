@@ -172,6 +172,8 @@ const EditFilm = () => {
       castIds: JSON.stringify(castIds)
     }
 
+    console.log(JSON.stringify(filmForm))
+
     const res = await fetch (`/api/films/${id}`,
       {
         method: "PUT",
