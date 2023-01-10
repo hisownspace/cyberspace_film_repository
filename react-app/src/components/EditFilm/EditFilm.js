@@ -303,6 +303,7 @@ const EditFilm = () => {
         {matches.map(actor => {
           return (
             <li
+              key={actor.id}
               className={selectedSearch === actor ? "search-dropdown-selected" : null}
               onClick={() => addToCast(actor)}
               onMouseOver={() => {setSelectedSearch(actor); setHover(true)}}
