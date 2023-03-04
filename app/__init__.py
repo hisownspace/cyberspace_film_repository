@@ -18,7 +18,7 @@ db.init_app(app)
 Migrate(app, db)
 app.cli.add_command(seed_commands)
 
-app.register_blueprint(actor_routes, url_prefix="/api/actors")
+app.register_blueprint(actor_routes)
 app.register_blueprint(film_routes) 
 app.register_blueprint(genre_routes)
 
