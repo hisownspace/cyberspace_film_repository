@@ -19,7 +19,7 @@ class Film(db.Model):
   year = db.Column(db.Integer, nullable=False)
   plot = db.Column(db.String(2000), nullable=True)
   photo_url = db.Column(db.String(1000), nullable=False)
-  genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=False)  
+  genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"))  
   
   
   genre = db.relationship("Genre", back_populates="films")
