@@ -15,8 +15,8 @@ def all_films():
 def one_film(id):
   film = Film.query.get(id)
   if not film:
-    return { "errors": "Film not found" }, 404
-  return film.to_dict(), 200
+    return { "errors": "Film not found" }
+  return film.to_dict()
 
 @film_routes.route("/count")
 def film_count():
@@ -26,6 +26,7 @@ def film_count():
 def add_film():
   """Receives a json representing an html form, converts it to a FlaskForm,validates the form, and if valid creates a new row in the films table of the database for the movie submitted. It returns a dictionary representing that movie."""
   form = FilmForm()
+  
   form["csrf_token"].data = request.cookies["csrf_token"]
   
   if form.validate_on_submit():
@@ -80,8 +81,6 @@ def edit_film(id):
     film.cast = cast
     
     try:
-      # db.session.add(film)
-      print("ADD IS NOT NECESSARY!")
       db.session.commit()
       return film.to_dict(), 200
     except Exception as e:

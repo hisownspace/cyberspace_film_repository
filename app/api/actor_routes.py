@@ -43,24 +43,24 @@ def all_actors():
     db.session.add(actor)
     db.session.commit()
 
-    return actor.to_dict(), 201, { "Content-Type": "application/json" }
+    return actor.to_dict(), 201
   
   elif form.errors:
-    return { "errors": form.errors }, 400, { "Content-Type": "application/json" }
+    return { "errors": form.errors }, 400 
   else:
     actors = Actor.query.all()
-    return { actor.id: actor.to_dict() for actor in actors }, 200, { "Content-Type": "application/json" }
+    return { actor.id: actor.to_dict() for actor in actors }, 200
 
 @actor_routes.route("/<int:id>") 
 def one_actor(id):
   actor = Actor.query.get(id)
   if actor:
-    return (actor.to_dict(), 200, { "Content-Type": "application/json" })
-  return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
+    return (actor.to_dict(), 200)
+  return { "errors": "Actor not found!" }, 404
   
 @actor_routes.route("/count")
 def actor_count():
-  return { "totalActors": Actor.query.count() }, 200, { "Content-Type": "application/json" }
+  return { "totalActors": Actor.query.count() }, 200
 
 @actor_routes.route("/<int:id>", methods=["DELETE"])
 def delete_actor(id):
@@ -68,8 +68,8 @@ def delete_actor(id):
   if actor:
     db.session.delete(actor)
     db.session.commit()
-    return { "message": f"Successfully deleted {actor.name}!" }, 204, { "Content-Type": "application/json" }
-  return { "errors": "Actor not found!" }, 404, { "Content-Type": "application/json" }
+    return { "message": f"Successfully deleted {actor.name}!" }, 204
+  return { "errors": "Actor not found!" }, 404
 
 @actor_routes.route("/<int:id>", methods=["PUT"])
 def update_actor(id):
@@ -99,5 +99,5 @@ def update_actor(id):
     except Exception as e:
       return { "errors": str(e) }, 500
 
-    return actor.to_dict(), 200, { "Content-Type": "application/json" }
-  return { "errors": form.errors }, 400, { "Content-Type": "application/json" }
+    return actor.to_dict(), 200
+  return { "errors": form.errors }, 400
