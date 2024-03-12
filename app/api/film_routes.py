@@ -3,7 +3,7 @@ from flask import Blueprint, request
 
 from app.models import db, Film, Actor
 from app.forms.FilmForm import FilmForm
-
+from app.aws_helpers import (upload_file_to_s3, get_unique_filename)
 film_routes = Blueprint("api/films", __name__, url_prefix="/api/films") 
 
 @film_routes.route("/")
@@ -30,6 +30,19 @@ def add_film():
   form["csrf_token"].data = request.cookies["csrf_token"]
   
   if form.validate_on_submit():
+
+    image = form.data["image"]
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+
+    print(upload)
+        
+    if "url" not in upload:
+        return { "errors": [upload] }
+
+
+    photo_url = upload["url"]
+
     params = {
       "title": form.data["title"],
       "year": form.data["year"],
