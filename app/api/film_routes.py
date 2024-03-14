@@ -47,7 +47,7 @@ def add_film():
       "title": form.data["title"],
       "year": form.data["year"],
       "plot": form.data["plot"],
-      "photo_url": form.data["photo_url"],
+      "photo_url": photo_url,
       "genre_id": form.data["genre_id"]
     }
     film = Film(**params)

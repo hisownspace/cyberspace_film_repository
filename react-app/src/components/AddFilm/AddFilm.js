@@ -5,7 +5,7 @@ function AddFilm() {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState(1902);
   const [plot, setPlot] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [photoUrl, setPhotoUrl] = useState(null);
   const [genreId, setGenreId] = useState("");
   const [genres, setGenres] = useState([]);
   const [actors, setActors] = useState([]);
@@ -19,7 +19,7 @@ function AddFilm() {
 
   const history = useHistory();
 
-  const handleCancel = e => {
+  const handleCancel = (e) => {
     history.push("/");
   };
 
@@ -36,9 +36,9 @@ function AddFilm() {
         if (data.errors) {
           setErrors(data.errors);
           console.log(data.errors);
-        };
+        }
         // setSubmitted(true);
-      };
+      }
     })();
   }, []);
 
@@ -53,9 +53,9 @@ function AddFilm() {
         if (data.errors) {
           setErrors(data.errors);
           console.log(data.errors);
-        };
+        }
         // setSubmitted(true);
-      };
+      }
     })();
   }, []);
 
@@ -64,27 +64,30 @@ function AddFilm() {
     // setCastSearch("");
   };
 
-  const searchActors = e => {
+  const searchActors = (e) => {
     const param = e.target.value;
     setCastSearch(param);
     const nameMatches = [];
     for (let i = 0; i < actors.length; i++) {
-      const name = actors[i].name.toLowerCase()
-      if (name.includes(param.toLowerCase()) && cast.indexOf(actors[i]) === -1) {
+      const name = actors[i].name.toLowerCase();
+      if (
+        name.includes(param.toLowerCase()) &&
+        cast.indexOf(actors[i]) === -1
+      ) {
         nameMatches.push(actors[i]);
-      };
-    };
+      }
+    }
     if (param.length) {
-    setMatches(nameMatches);
-    // console.log(nameMatches);
-    setSelectedSearch(nameMatches[0]);
+      setMatches(nameMatches);
+      // console.log(nameMatches);
+      setSelectedSearch(nameMatches[0]);
     } else {
       setMatches([]);
     }
   };
 
-  const addToCast = actor => {
-    const tempCast = [ ...cast ];
+  const addToCast = (actor) => {
+    const tempCast = [...cast];
     tempCast.push(actor);
     setCast(tempCast);
     setCastSearch("");
@@ -92,69 +95,75 @@ function AddFilm() {
     setHover(false);
   };
 
-  const removeFromCast = actor => {
-    const newCast = cast.filter(elem => elem !== actor);
+  const removeFromCast = (actor) => {
+    const newCast = cast.filter((elem) => elem !== actor);
     setCast(newCast);
   };
 
   const toggleClass = (e, action) => {
     if (action === "enter") {
-    e.target.parentElement.className = "cast-member-hover";
+      e.target.parentElement.className = "cast-member-hover";
     } else {
-    e.target.parentElement.className = "cast-member";
+      e.target.parentElement.className = "cast-member";
     }
   };
 
-  const handleKeyPress = e => {
+  const handleKeyPress = (e) => {
     const idx = matches.indexOf(selectedSearch);
     if (matches.length === 0) {
       return;
-    } else if (e.key === 'Enter') {
+    } else if (e.key === "Enter") {
       e.preventDefault();
       addToCast(selectedSearch);
     } else if (hover) {
-      return; 
-    } else if (e.key === 'ArrowDown') {
+      return;
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (idx >= 0 && idx < matches.length - 1) {
         setSelectedSearch(matches[idx + 1]);
       }
-    } else if (e.key === 'ArrowUp' && idx > 0) {
+    } else if (e.key === "ArrowUp" && idx > 0) {
       setSelectedSearch(matches[idx - 1]);
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const castIds = [];
     for (let i = 0; i < cast.length; i++) {
       castIds.push(cast[i].id.toString());
-    };
-    console.log(castIds);
-
-    const filmForm = {
-      title,
-      year,
-      plot,
-      "photo_url": photoUrl,
-      "genre_id": genreId,
-      castIds: JSON.stringify(castIds)
     }
+    /////////////////////////////////
+    const formData = new FormData();
 
-    const res = await fetch ("/api/films/",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(filmForm)
-      }
-    );
+    formData.append("title", title);
+    formData.append("year", year);
+    formData.append("plot", plot);
+    formData.append("image", photoUrl);
+    formData.append("genre_id", genreId);
+    formData.append("castIds", JSON.stringify(castIds));
+
+    // const filmForm = {
+    //   title,
+    //   year,
+    //   plot,
+    //   photo_url: photoUrl,
+    //   genre_id: genreId,
+    //   castIds: JSON.stringify(castIds),
+    // };
+
+    const res = await fetch("/api/films/", {
+      method: "POST",
+      body: formData,
+    });
+    //////////////////////////////////////////////
     setSubmitted(true);
     const data = await res.json();
     if (res.ok) {
       // const film = await res.json();
       const film = data;
-      history.push(`/films/${film.id}`)
+      history.push(`/films/${film.id}`);
     } else if (data.errors) {
       console.log(res.status);
       // const data = await res.json();
@@ -163,37 +172,33 @@ function AddFilm() {
       console.log(data.errors);
       // }
     } else {
-      setErrors(["Unknown Error!"])
+      setErrors(["Unknown Error!"]);
     }
-  }
+  };
   return (
     <div className="form-main">
-      <h1 className="add-actor-header">
-        Add A Film!
-      </h1>
-      <form className="addActorForm" onSubmit={handleSubmit}>
+      <h1 className="add-actor-header">Add A Film!</h1>
+      <form
+        encType="multipart/form-data"
+        className="addActorForm"
+        onSubmit={handleSubmit}
+      >
         <div className="errors">
           {errors.title && submitted ? "Title: " + errors.title : null}
         </div>
-        <label
-          htmlFor="title"
-          className="actor-label"
-        >
+        <label htmlFor="title" className="actor-label">
           Title
         </label>
         <input
           className="actor-input"
           id="title"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <p className="errors">
           {errors.year && submitted ? "Year: " + errors.year : null}
         </p>
-        <label
-          htmlFor="year"
-          className="actor-label"
-        >
+        <label htmlFor="year" className="actor-label">
           Year
         </label>
         <input
@@ -201,61 +206,60 @@ function AddFilm() {
           type="number"
           id="year"
           value={year}
-          onChange={e => setYear(e.target.value)}
+          onChange={(e) => setYear(e.target.value)}
         />
         <p className="errors">
           {errors.plot && submitted ? "Plot:" + errors.plot[0] : null}
         </p>
-        <label
-          htmlFor="plot"
-          className="actor-label"
-        >
+        <label htmlFor="plot" className="actor-label">
           Plot
         </label>
         <textarea
           id="plot"
           value={plot}
-          onChange={e => setPlot(e.target.value)}
+          onChange={(e) => setPlot(e.target.value)}
         />
         <p className="errors">
-          {errors.photo_url && submitted ? "Photo URL: " + errors.photo_url : null}
+          {errors.photo_url && submitted
+            ? "Photo URL: " + errors.photo_url
+            : null}
         </p>
-        <label
-          htmlFor="photo"
-          className="actor-label"
-        >
+        <label htmlFor="photo" className="actor-label">
           Photo URL
         </label>
+        ###################################################
         <input
           className="actor-input"
           id="photo"
-          value={photoUrl}
-          onChange={e => setPhotoUrl(e.target.value)}
+          onChange={(e) => setPhotoUrl(e.target.files[0])}
+          type="file"
+          accept="image/*"
         />
+        ###################################################
         <p className="errors">
-          {errors.genre_id && submitted ? "Genre ID: Please Select A Genre" : null}
+          {errors.genre_id && submitted
+            ? "Genre ID: Please Select A Genre"
+            : null}
         </p>
-        <label
-          htmlFor="genreId"
-          className="actor-label"
-        >
+        <label htmlFor="genreId" className="actor-label">
           Genre
         </label>
         <select
           className="actor-input"
           id="genreId"
           defaultValue={"-- Please Select a Genre --"}
-          onChange={e => setGenreId(e.target.value)}
+          onChange={(e) => setGenreId(e.target.value)}
         >
-        <option disabled>-- Please Select a Genre --</option>
-        {genres.map((genre, idx) => {
-          return <option key={idx} value={genre[0]}>{genre[1]}</option>
-        })}
+          <option disabled>-- Please Select a Genre --</option>
+          {genres.map((genre, idx) => {
+            return (
+              <option key={idx} value={genre[0]}>
+                {genre[1]}
+              </option>
+            );
+          })}
         </select>
-        <label
-          htmlFor="cast"
-          className="actor-label"
-        >
+        <label htmlFor="cast" className="actor-label">
           Cast
         </label>
         <input
@@ -268,42 +272,56 @@ function AddFilm() {
           // onKeyPress={handleKeyPress}
           onKeyDown={handleKeyPress}
         />
-        {matches.length ? <ul onMouseDown={e => e.preventDefault()}className="search-dropdown">
-        {matches.map(actor => {
-          return (
-            <li
-              className={selectedSearch === actor ? "search-dropdown-selected" : null}
-              onClick={() => addToCast(actor)}
-              onMouseOver={() => {setSelectedSearch(actor); setHover(true)}}
-              onMouseLeave={() => setHover(false)}
-            >
-              {actor.name}
-            </li>
-          )
-        })
-        }
-        </ul> : null}
+        {matches.length ? (
+          <ul
+            onMouseDown={(e) => e.preventDefault()}
+            className="search-dropdown"
+          >
+            {matches.map((actor) => {
+              return (
+                <li
+                  className={
+                    selectedSearch === actor ? "search-dropdown-selected" : null
+                  }
+                  onClick={() => addToCast(actor)}
+                  onMouseOver={() => {
+                    setSelectedSearch(actor);
+                    setHover(true);
+                  }}
+                  onMouseLeave={() => setHover(false)}
+                >
+                  {actor.name}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
         <div className="cast-list">
-          {cast.map(actor => {
+          {cast.map((actor) => {
             return (
               <span className="cast-member">
-                {actor.name}&ensp;&nbsp;<b
+                {actor.name}&ensp;&nbsp;
+                <b
                   className="remove-cast-member"
-                  onMouseOver={e => toggleClass(e, "enter")}
-                  onMouseLeave={e => toggleClass(e, "leave")}
+                  onMouseOver={(e) => toggleClass(e, "enter")}
+                  onMouseLeave={(e) => toggleClass(e, "leave")}
                   onClick={() => removeFromCast(actor)}
-                  >x</b>
+                >
+                  x
+                </b>
               </span>
-            )
+            );
           })}
         </div>
         <div className="buttonHole" id="search-allowance-buttons">
-          <button className="cancel" type="button" onClick={handleCancel}>Cancel</button>
+          <button className="cancel" type="button" onClick={handleCancel}>
+            Cancel
+          </button>
           <button>Submit</button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default AddFilm;

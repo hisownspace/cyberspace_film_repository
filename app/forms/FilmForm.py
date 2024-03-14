@@ -5,7 +5,7 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 from datetime import datetime
 # from urllib.request import urlopen
 
-from app.api.aws_helper import ALLOWED_EXTENSIONS
+from app.aws_helpers import ALLOWED_EXTENSIONS
 
 class FilmForm(FlaskForm):
   title = StringField(validators=[DataRequired()])
